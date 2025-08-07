@@ -12,8 +12,8 @@ const FloatingTOC: React.FC<Props> = React.memo(({ sections, activeSection }) =>
   >
     {/* sticky wrapper */}
     <div className="sticky top-24 z-30">
-      <div className="bg-[#111] rounded-2xl p-6 border border-gray-800 space-y-2 max-h-[calc(100vh-6rem)] overflow-y-auto">
-        <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wide">
+      <div className="bg-neutral-800 rounded-2xl p-6 border border-neutral-700 space-y-2 max-h-[calc(100vh-6rem)] overflow-y-auto">
+        <h3 className="text-secondary font-semibold font-primary mb-4 text-sm uppercase tracking-wide">
           Table of Contents
         </h3>
         <ul className="space-y-1">
@@ -22,10 +22,10 @@ const FloatingTOC: React.FC<Props> = React.memo(({ sections, activeSection }) =>
               <a
                 href={'#' + sec.id}
                 className={
-                  `block px-3 py-2 rounded-lg text-sm transition-all duration-200 ` +
+                  `block px-3 py-2 rounded-lg text-sm font-primary transition-all duration-200 ` +
                   (activeSection === sec.id
-                    ? 'text-[#16d68f] bg-[#222] border-l-2 border-[#16d68f] pl-4'
-                    : 'text-gray-300 hover:text-[#16d68f] hover:bg-[#222] hover:pl-4')
+                    ? 'text-primary bg-neutral-700 border-l-2 border-primary pl-4'
+                    : 'text-neutral-300 hover:text-primary hover:bg-neutral-700 hover:pl-4')
                 }
               >
                 {sec.title}

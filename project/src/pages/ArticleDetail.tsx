@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ArrowLeft, Clock, FileText, Loader } from 'lucide-react';
+import { ArrowLeft, Clock, FileText } from 'lucide-react';
 import Footer from '../components/Footer';
 import FloatingTOC from '../components/FloatingTOC';
 // Removed empty floating-toc.css import
@@ -219,22 +219,24 @@ function ArticleDetail() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-black">
-        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-[#16d68f] border-opacity-50"></div>
+      <div className="flex items-center justify-center min-h-screen bg-neutral-950">
+        <div className="w-64 h-64 md:w-80 md:h-80 rounded-full bg-gradient-to-br from-primary/20 to-accent/30 animate-pulse flex items-center justify-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-primary border-opacity-80"></div>
+        </div>
       </div>
     );
   }
 
   if (!article) {
     return (
-      <div className="bg-black min-h-screen">
+      <div className="bg-neutral-950 min-h-screen">
         <div className="py-16 px-8 lg:px-16">
           <div className="max-w-6xl mx-auto text-center">
-            <h1 className="text-white text-4xl font-bold mb-4">Article Not Found</h1>
-            <p className="text-gray-300 mb-8">The article you're looking for doesn't exist.</p>
+            <h1 className="text-secondary text-4xl font-bold font-primary mb-4">Article Not Found</h1>
+            <p className="text-neutral-300 font-primary mb-8">The article you're looking for doesn't exist.</p>
             <Link
               to="/articles"
-              className="inline-flex items-center px-6 py-3 bg-[#16d68f] text-black rounded-full font-medium hover:bg-[#14c07f] transition-colors duration-200"
+              className="inline-flex items-center px-6 py-3 bg-primary text-neutral-900 rounded-full font-medium font-primary hover:bg-accent transition-colors duration-200"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Articles
@@ -246,39 +248,39 @@ function ArticleDetail() {
   }
 
   return (
-    <div className="bg-black min-h-screen">
+    <div className="bg-neutral-950 min-h-screen">
       <div className="py-16 px-8 lg:px-16">
         <div className="max-w-6xl mx-auto">
           {/* Back Link & Header */}
           <Link
             to="/articles"
-            className="inline-flex items-center text-gray-400 mb-6 hover:text-white transition-colors duration-200 group"
+            className="inline-flex items-center text-neutral-400 mb-6 hover:text-secondary transition-colors duration-200 group font-primary"
           >
             <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform duration-200" />
             Back to Articles
           </Link>
 
-          <h1 className="text-white text-4xl lg:text-5xl font-bold mb-4">
+          <h1 className="text-secondary text-4xl lg:text-5xl font-bold font-primary mb-4">
             {article.title}
           </h1>
           
-          <p className="text-gray-300 mb-6 max-w-3xl text-lg leading-relaxed">
+          <p className="text-neutral-300 mb-6 max-w-3xl text-lg leading-relaxed font-primary">
             {article.description}
           </p>
 
           {/* Featured image */}
-          <div className="w-full h-64 sm:h-80 md:h-96 bg-gradient-to-br from-neutral-900 to-black rounded-2xl mb-8 overflow-hidden">
+          <div className="w-full h-64 sm:h-80 md:h-96 bg-gradient-to-br from-neutral-900 to-neutral-950 rounded-2xl mb-8 overflow-hidden">
             {article?.imageUrl ? (
               <div className="w-full h-full opacity-70 bg-center bg-cover" style={{ backgroundImage: `url(${article.imageUrl})` }}></div>
             ) : (
               <div className="w-full h-full flex items-center justify-center">
-                <FileText className="w-24 h-24 text-neutral-700" />
+                <FileText className="w-24 h-24 text-neutral-600" />
               </div>
             )}
           </div>
 
           {/* Article metadata */}
-          <div className="flex flex-wrap gap-4 text-neutral-400 text-sm mb-8">
+          <div className="flex flex-wrap gap-4 text-neutral-400 text-sm mb-8 font-primary">
             <div className="flex items-center">
               <Clock size={16} className="mr-1" />
               <span>{article?.topics?.length || 0} Topics</span>
@@ -289,8 +291,10 @@ function ArticleDetail() {
             <div className="max-w-4xl mx-auto p-6">
               <div className="flex justify-center items-center py-20">
                 <div className="flex flex-col items-center">
-                  <Loader className="w-12 h-12 text-brand-500 animate-spin mb-4" />
-                  <p className="text-neutral-400">Loading chapter content...</p>
+                  <div className="w-64 h-64 rounded-full bg-gradient-to-br from-primary/20 to-accent/30 animate-pulse flex items-center justify-center mb-4">
+                    <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-primary border-opacity-80"></div>
+                  </div>
+                  <p className="text-neutral-400 font-primary">Loading chapter content...</p>
                 </div>
               </div>
             </div>
@@ -306,10 +310,10 @@ function ArticleDetail() {
               className="hidden lg:block"
             >
               {loading ? (
-                <div className="animate-pulse space-y-4 bg-[#111] rounded-2xl p-6 border border-gray-800">
-                  <div className="h-6 bg-[#222] rounded w-3/4 mb-2"></div>
+                <div className="animate-pulse space-y-4 bg-neutral-800 rounded-2xl p-6 border border-neutral-700">
+                  <div className="h-6 bg-neutral-700 rounded w-3/4 mb-2"></div>
                   {[...Array(5)].map((_, i) => (
-                    <div key={i} className="h-4 bg-[#222] rounded w-5/6 mb-2"></div>
+                    <div key={i} className="h-4 bg-neutral-700 rounded w-5/6 mb-2"></div>
                   ))}
                 </div>
               ) : (
@@ -324,20 +328,20 @@ function ArticleDetail() {
                     key={section.id}
                     className="scroll-mt-24"
                   >
-                    <h2 className="text-2xl text-[#16d68f] font-semibold mb-6">
+                    <h2 className="text-2xl text-primary font-semibold font-primary mb-6">
                       {section.title}
                     </h2>
                     <div
                       className="prose prose-invert max-w-none prose-lg
-                        prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-4
-                        prose-headings:text-white prose-headings:font-semibold
-                        prose-strong:text-white prose-strong:font-semibold
-                        prose-ul:text-gray-300 prose-ol:text-gray-300 prose-ul:mb-4 prose-ol:mb-4
-                        prose-li:text-gray-300 prose-li:leading-relaxed prose-li:mb-1
-                        prose-a:text-[#16d68f] prose-a:no-underline hover:prose-a:underline
-                        prose-code:text-[#16d68f] prose-code:bg-[#111] prose-code:px-2 prose-code:py-1 prose-code:rounded
-                        prose-blockquote:border-l-[#16d68f] prose-blockquote:bg-[#111] prose-blockquote:p-4 prose-blockquote:rounded-r-lg prose-blockquote:mb-4
-                        prose-blockquote:text-gray-300" style={{ color: '#fff' }}
+                        prose-p:text-neutral-300 prose-p:leading-relaxed prose-p:mb-4
+                        prose-headings:text-secondary prose-headings:font-semibold
+                        prose-strong:text-secondary prose-strong:font-semibold
+                        prose-ul:text-neutral-300 prose-ol:text-neutral-300 prose-ul:mb-4 prose-ol:mb-4
+                        prose-li:text-neutral-300 prose-li:leading-relaxed prose-li:mb-1
+                        prose-a:text-primary prose-a:no-underline hover:prose-a:underline
+                        prose-code:text-primary prose-code:bg-neutral-800 prose-code:px-2 prose-code:py-1 prose-code:rounded
+                        prose-blockquote:border-l-primary prose-blockquote:bg-neutral-800 prose-blockquote:p-4 prose-blockquote:rounded-r-lg prose-blockquote:mb-4
+                        prose-blockquote:text-neutral-300" style={{ color: '#fff' }}
                     >
                       {section.content ? (
                         <div dangerouslySetInnerHTML={{ __html: section.content }} />

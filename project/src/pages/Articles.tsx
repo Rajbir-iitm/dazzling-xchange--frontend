@@ -57,13 +57,13 @@ function Articles() {
 
   if (loading) {
     return (
-      <div className="bg-black min-h-screen">
-        <section className="articles-header bg-black py-16 px-8 lg:px-16">
+      <div className="bg-neutral-950 min-h-screen">
+        <section className="articles-header bg-neutral-950 py-16 px-8 lg:px-16">
           <div className="max-w-3xl mx-auto flex flex-col items-center text-center space-y-6">
-            <div className="animate-pulse">
-              <div className="h-12 bg-[#111] rounded mb-4 w-96"></div>
-              <div className="h-6 bg-[#111] rounded mb-8 w-80"></div>
-              <div className="h-12 bg-[#111] rounded-full w-full max-w-xl"></div>
+            <div className="w-full h-full flex items-center justify-center">
+              <div className="w-64 h-64 md:w-80 md:h-80 rounded-full bg-gradient-to-br from-primary/20 to-accent/30 animate-pulse flex items-center justify-center">
+                <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-primary border-opacity-80"></div>
+              </div>
             </div>
           </div>
         </section>
@@ -71,11 +71,11 @@ function Articles() {
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {[...Array(6)].map((_, i) => (
-                <div key={i} className="bg-[#111] rounded-2xl overflow-hidden">
-                  <div className="h-40 bg-gray-800"></div>
+                <div key={i} className="bg-neutral-800 rounded-2xl overflow-hidden animate-pulse">
+                  <div className="h-40 bg-neutral-700"></div>
                   <div className="p-4">
-                    <div className="h-6 bg-gray-800 rounded mb-2"></div>
-                    <div className="h-4 bg-gray-800 rounded"></div>
+                    <div className="h-6 bg-neutral-700 rounded mb-2"></div>
+                    <div className="h-4 bg-neutral-700 rounded"></div>
                   </div>
                 </div>
               ))}
@@ -87,33 +87,33 @@ function Articles() {
   }
 
   return (
-    <div className="bg-black min-h-screen">
+    <div className="bg-neutral-950 min-h-screen">
       {/* Centered Header Section */}
-      <section className="articles-header bg-black py-16 px-8 lg:px-16">
+      <section className="articles-header bg-neutral-950 py-16 px-8 lg:px-16">
         <div className="max-w-3xl mx-auto flex flex-col items-center text-center space-y-6">
           {/* Title */}
-          <h1 className="text-white text-4xl lg:text-5xl font-bold">
+          <h1 className="text-secondary text-4xl lg:text-5xl font-bold font-primary">
             Articles & Tutorials
           </h1>
           
           {/* Subtitle */}
-          <p className="text-gray-300 text-lg lg:text-xl">
+          <p className="text-neutral-300 text-lg lg:text-xl font-primary">
             Browse our latest guides, tutorials, and deep-dives into international money transfers.
           </p>
           
           {/* Search Bar */}
           <div className="w-full relative">
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 w-5 h-5" />
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-neutral-500 w-5 h-5" />
             <input
               type="search"
               placeholder="Search articles…"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               className="
-                w-full bg-[#111] text-white placeholder-gray-500
+                w-full bg-neutral-800 text-secondary placeholder-neutral-400 font-primary
                 rounded-full pl-12 pr-6 py-3 transition-all duration-200
-                border border-gray-800 focus:outline-none 
-                focus:border-[#16d68f] focus:ring-2 focus:ring-[#16d68f]
+                border border-neutral-700 focus:outline-none 
+                focus:border-primary focus:ring-2 focus:ring-primary/20
                 focus:shadow-none
               "
             />
@@ -126,7 +126,7 @@ function Articles() {
         <div className="max-w-6xl mx-auto">
           {/* Results Count */}
           {query && (
-            <p className="text-gray-400 mb-6">
+            <p className="text-neutral-400 mb-6 font-primary">
               {filteredArticles.length} article{filteredArticles.length !== 1 ? 's' : ''} found
             </p>
           )}
@@ -138,7 +138,7 @@ function Articles() {
                 <Link
                   to={`/articles/${article.id}`}
                   key={article.id}
-                  className="group block bg-[#111] rounded-2xl overflow-hidden card-hover-glow transition-transform duration-300 hover:-translate-y-1"
+                  className="group block bg-neutral-800 rounded-2xl overflow-hidden card-hover-glow transition-transform duration-300 hover:-translate-y-1"
                 >
                   <div className="overflow-hidden">
                     <img
@@ -148,10 +148,10 @@ function Articles() {
                     />
                   </div>
                   <div className="p-4">
-                    <h3 className="text-white text-xl font-semibold mb-2 group-hover:text-[#16d68f] transition-colors duration-200">
+                    <h3 className="text-secondary text-xl font-semibold font-primary mb-2 group-hover:text-primary transition-colors duration-200">
                       {article.title}
                     </h3>
-                    <p className="text-gray-300 text-sm leading-relaxed">
+                    <p className="text-neutral-300 text-sm font-primary leading-relaxed">
                       {article.description || 'Click to view this chapter content.'}
                     </p>
                   </div>
@@ -160,17 +160,17 @@ function Articles() {
             </div>
           ) : (
             <div className="text-center py-16">
-              <div className="text-gray-500 mb-4">
+              <div className="text-neutral-500 mb-4">
                 <Search className="w-16 h-16 mx-auto mb-4 opacity-50" />
               </div>
-              <h3 className="text-white text-xl font-semibold mb-2">No articles found</h3>
-              <p className="text-gray-400">
+              <h3 className="text-secondary text-xl font-semibold font-primary mb-2">No articles found</h3>
+              <p className="text-neutral-400 font-primary">
                 Try adjusting your search terms or browse all articles.
               </p>
               {query && (
                 <button
                   onClick={() => setQuery('')}
-                  className="mt-4 px-6 py-2 bg-[#16d68f] text-black rounded-full font-medium hover:bg-[#14c07f] transition-colors duration-200"
+                  className="mt-4 px-6 py-2 bg-primary text-neutral-900 rounded-full font-medium font-primary hover:bg-accent transition-colors duration-200"
                 >
                   Clear Search
                 </button>
