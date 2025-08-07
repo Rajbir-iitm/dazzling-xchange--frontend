@@ -3,36 +3,74 @@
 /* Improved text hierarchy and spacing for the larger widget */
 .exchange-widget .widget-header {
   letter-spacing: 0.1em;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  white-space: nowrap; /* Prevent header from wrapping */
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .exchange-widget .currency-pair {
-  line-height: 1.2;
-  margin-bottom: 1.5rem;
+  line-height: 1.1;
+  margin-bottom: 2rem;
+  max-width: 100%; /* Ensure it fits within the card */
 }
 
 .exchange-widget .exchange-rate {
-  line-height: 1.1;
-  margin-bottom: 1.25rem;
+  line-height: 1.0;
+  margin-bottom: 1.75rem;
   font-weight: 800;
+  max-width: 100%; /* Ensure it fits within the card */
+  word-break: break-word; /* Allow breaking long numbers if needed */
 }
 
 .exchange-widget .rate-change {
-  line-height: 1.3;
+  line-height: 1.5; /* Increased line height to prevent cut-off */
   font-weight: 600;
+  white-space: nowrap; /* Keep "today" on same line */
+  overflow: visible; /* Allow proper display */
+  padding-bottom: 0.5rem; /* Extra padding to prevent descender cut-off */
+  margin-bottom: 0; /* Remove any bottom margin that might cause issues */
 }
 
 /* Responsive text scaling improvements */
-@media (max-width: 640px) {
+@media (max-width: 1024px) and (min-width: 641px) {
   .exchange-widget .widget-header {
-    margin-bottom: 0.75rem;
+    margin-bottom: 1.25rem;
+    font-size: 1rem;
   }
   
   .exchange-widget .currency-pair {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
   }
   
   .exchange-widget .exchange-rate {
+    margin-bottom: 1.5rem;
+  }
+  
+  .exchange-widget .rate-change {
+    font-size: 1.5rem;
+    line-height: 1.4;
+    padding-bottom: 0.75rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .exchange-widget .widget-header {
     margin-bottom: 1rem;
+    font-size: 0.95rem;
+  }
+  
+  .exchange-widget .currency-pair {
+    margin-bottom: 1.25rem;
+  }
+  
+  .exchange-widget .exchange-rate {
+    margin-bottom: 1.25rem;
+  }
+  
+  .exchange-widget .rate-change {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    padding-bottom: 1rem;
   }
 }

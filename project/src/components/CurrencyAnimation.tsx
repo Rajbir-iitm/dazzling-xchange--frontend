@@ -170,19 +170,19 @@ const CurrencyAnimation: React.FC = () => {
         <AnimatePresence mode="wait">
           <motion.div
             key={currentPairIndex}
-            className="flex items-center justify-center space-x-4 md:space-x-6 mb-8"
+            className="flex items-center justify-center space-x-5 md:space-x-7 mb-10"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
           >
             <Tooltip content={`${currentPair.fromName} ↔ ${currentPair.toName}`}>
-              <div className="currency-pair flex items-center space-x-4 md:space-x-6 cursor-help">
-                <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white font-primary tracking-wider">
+              <div className="currency-pair flex items-center space-x-5 md:space-x-7 cursor-help">
+                <span className="text-4xl sm:text-5xl md:text-6xl font-bold text-white font-primary tracking-wide">
                   {currentPair.from}
                 </span>
                 <motion.div
-                  className="text-primary text-2xl md:text-3xl swap-icon"
+                  className="text-primary text-3xl md:text-4xl swap-icon"
                   animate={{ rotate: 360 }}
                   transition={{ 
                     duration: 6, 
@@ -190,9 +190,9 @@ const CurrencyAnimation: React.FC = () => {
                     ease: 'linear' 
                   }}
                 >
-                  <SwapIcon className="w-8 h-8 md:w-10 md:h-10" />
+                  <SwapIcon className="w-10 h-10 md:w-12 md:h-12" />
                 </motion.div>
-                <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white font-primary tracking-wider">
+                <span className="text-4xl sm:text-5xl md:text-6xl font-bold text-white font-primary tracking-wide">
                   {currentPair.to}
                 </span>
               </div>
@@ -203,7 +203,7 @@ const CurrencyAnimation: React.FC = () => {
         <AnimatePresence mode="wait">
           <motion.div
             key={`rate-${currentPairIndex}`}
-            className="exchange-rate text-primary text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold font-primary"
+            className="exchange-rate text-primary text-4xl sm:text-5xl md:text-6xl font-extrabold font-primary"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
@@ -221,7 +221,7 @@ const CurrencyAnimation: React.FC = () => {
         
         <motion.div
           key={`delta-${currentPairIndex}`}
-          className={`rate-change text-xl md:text-2xl font-primary font-semibold ${
+          className={`rate-change text-2xl md:text-3xl font-primary font-semibold ${
             isPositiveChange 
               ? 'delta-positive text-green-400' 
               : 'delta-negative text-red-400'
