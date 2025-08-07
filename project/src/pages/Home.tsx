@@ -86,7 +86,7 @@ function Home() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.6 }}
               >
-                <p className="text-primary text-lg lg:text-xl font-medium font-primary tracking-wide mb-4 uppercase">
+                <p className="text-primary text-2xl lg:text-3xl xl:text-4xl font-medium font-primary tracking-wide mb-4 uppercase">
                   Dazzling Xchange
                 </p>
                 <h1 className="text-secondary text-5xl lg:text-7xl xl:text-8xl font-bold font-primary leading-tight">
