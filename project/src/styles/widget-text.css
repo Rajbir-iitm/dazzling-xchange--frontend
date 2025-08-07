@@ -1,0 +1,38 @@
+/* Additional text improvements for the exchange widget */
+
+/* Improved text hierarchy and spacing for the larger widget */
+.exchange-widget .widget-header {
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+}
+
+.exchange-widget .currency-pair {
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+
+.exchange-widget .exchange-rate {
+  line-height: 1.1;
+  margin-bottom: 1.25rem;
+  font-weight: 800;
+}
+
+.exchange-widget .rate-change {
+  line-height: 1.3;
+  font-weight: 600;
+}
+
+/* Responsive text scaling improvements */
+@media (max-width: 640px) {
+  .exchange-widget .widget-header {
+    margin-bottom: 0.75rem;
+  }
+  
+  .exchange-widget .currency-pair {
+    margin-bottom: 1rem;
+  }
+  
+  .exchange-widget .exchange-rate {
+    margin-bottom: 1rem;
+  }
+}

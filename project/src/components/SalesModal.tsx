@@ -1,0 +1,203 @@
+import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { X, Loader } from 'lucide-react';
+import { useSalesModalStore } from '../stores/salesModalStore';
+import PhoneField, { PhoneValue } from './PhoneField';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '../lib/firebase';
+
+const SalesModal = () => {
+  const { open, closeModal } = useSalesModalStore();
+  const [phone, setPhone] = useState<PhoneValue>({ dialCode: '61', number: '' });
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    company: 'Kim Industries',
+    message: '',
+    country: 'USA/Canada',
+    date: new Date().toISOString(),
+    resolved: false
+  });
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  // Simple scroll lock
+  useEffect(() => {
+    document.body.style.overflow = open ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [open]);
+
+  // ESC key handler
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && open) {
+        closeModal();
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [open, closeModal]);
+
+  if (typeof document === 'undefined') return null;
+  const root = document.getElementById('modal-root') ?? document.body;
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+    
+    try {
+      const fullPhone = `+${phone.dialCode}${phone.number}`;
+      const submissionData = {
+        ...formData,
+        phone: fullPhone,
+        createdAt: serverTimestamp(),
+        date: new Date().toISOString()
+      };
+      
+      // Save to Firestore enquiries collection
+      await addDoc(collection(db, 'enquiries'), submissionData);
+      console.log('Form submission saved to Firestore');
+      setSubmitted(true);
+    } catch (err) {
+      console.error('Error saving form submission:', err);
+      setError('Failed to submit form. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return createPortal(
+    <AnimatePresence mode="wait">
+      {open && (
+        <>
+          {/* Dark overlay - no blur */}
+          <motion.div
+            className="fixed inset-0 z-40 bg-black/60"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.15 }}
+            onClick={closeModal}
+          />
+
+          {/* Wrapper centers modal */}
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.15 }}
+          >
+            <motion.form
+              className="w-full max-w-md rounded-2xl bg-neutral-900 p-6 shadow-xl relative"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.15, ease: 'easeOut' }}
+              onClick={(e) => e.stopPropagation()}
+              onSubmit={handleSubmit}
+            >
+              {/* Close button */}
+              <button
+                type="button"
+                onClick={closeModal}
+                className="absolute top-4 right-4 text-gray-400 hover:text-white hover:bg-neutral-700 rounded-full p-2 transition-all duration-150 z-50 focus:outline-none focus:ring-2 focus:ring-primary active:scale-95"
+                aria-label="Close modal"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              {submitted ? (
+                <div className="flex flex-col items-center justify-center min-h-[300px] text-center">
+                  <h2 className="text-2xl font-bold text-white mb-4">Thank you for your submission!</h2>
+                  <p className="text-gray-300 mb-8">Our team will contact you soon to help you open your account.</p>
+                  <button
+                    type="button"
+                    onClick={() => { setSubmitted(false); closeModal(); }}
+                    className="w-full bg-brand-500 text-neutral-900 rounded-lg px-4 py-3 font-medium hover:bg-brand-600 transition-colors duration-200"
+                  >
+                    Close
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <h2 className="text-xl font-semibold mb-6 text-white pr-8">
+                    Open Account
+                  </h2>
+                  {/* Form fields */}
+                  <div className="space-y-4">
+                    <input
+                      type="text"
+                      value={formData.name}
+                      onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                      required
+                      placeholder="Full Name *"
+                      className="form-input"
+                    />
+                    <input
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                      required
+                      placeholder="Email Address *"
+                      className="form-input"
+                    />
+                    <PhoneField value={phone} onChange={setPhone} />
+                    <input
+                      type="text"
+                      value={formData.company}
+                      onChange={(e) => setFormData(prev => ({ ...prev, company: e.target.value }))}
+                      placeholder="Company"
+                      className="form-input"
+                    />
+                    <select
+                      value={formData.country}
+                      onChange={(e) => setFormData(prev => ({ ...prev, country: e.target.value }))}
+                      className="form-input bg-neutral-800 text-white"
+                    >
+                      <option value="USA/Canada">USA/Canada</option>
+                      <option value="Europe">Europe</option>
+                      <option value="Asia">Asia</option>
+                      <option value="Australia/NZ">Australia/New Zealand</option>
+                      <option value="Other">Other</option>
+                    </select>
+                    <textarea
+                      value={formData.message}
+                      onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
+                      rows={3}
+                      placeholder="Message"
+                      className="form-input resize-none"
+                    />
+                    {error && (
+                      <div className="text-red-500 text-sm mt-2">{error}</div>
+                    )}
+                    <button
+                      type="submit"
+                      disabled={loading}
+                      className="w-full mt-6 py-3 rounded-lg bg-brand-500 font-medium text-neutral-900 hover:bg-brand-600 transition-colors duration-200 relative disabled:opacity-70 disabled:cursor-not-allowed"
+                    >
+                      {loading ? (
+                        <>
+                          <Loader className="w-5 h-5 animate-spin inline mr-2" />
+                          Submitting...
+                        </>
+                      ) : (
+                        'Submit Request'
+                      )}
+                    </button>
+                  </div>
+                </>
+              )}
+            </motion.form>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>,
+    root
+  );
+};
+
+export default SalesModal;

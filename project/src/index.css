@@ -1,0 +1,521 @@
+/* Import Inter font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+/* CSS Custom Properties from theme */
+:root {
+  --color-primary: #00D084;
+  --color-secondary: #ffffff;
+  --color-accent: #10B981;
+  --color-neutral-50: #f9fafb;
+  --color-neutral-100: #f3f4f6;
+  --color-neutral-200: #e5e7eb;
+  --color-neutral-300: #d1d5db;
+  --color-neutral-400: #9ca3af;
+  --color-neutral-500: #6b7280;
+  --color-neutral-600: #4b5563;
+  --color-neutral-700: #374151;
+  --color-neutral-800: #1f2937;
+  --color-neutral-900: #111827;
+  --color-neutral-950: #030712;
+  --font-family-primary: 'Inter', system-ui, -apple-system, sans-serif;
+  --border-radius-md: 0.375rem;
+  --border-radius-lg: 0.5rem;
+  --border-radius-xl: 0.75rem;
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-glow: 0 0 20px rgb(0 208 132 / 0.3);
+  --animation-duration-normal: 250ms;
+  --animation-easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Ensure content is fully visible and properly contained */
+html, body {
+  overflow-x: hidden;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  min-width: 320px; /* Prevent content from being too narrow */
+  font-family: var(--font-family-primary);
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+* {
+  scrollbar-width: none;     /* Firefox */
+  box-sizing: border-box;
+}
+
+#root {
+  overflow-x: hidden;
+  width: 100%;
+  min-height: 100%;
+  position: relative;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Full-Viewport Radial Gradient Background */
+body {
+  background: radial-gradient(
+    circle at center,
+    #0b0e17 0%,
+    #0a0c14 40%,
+    #080a10 100%
+  );
+  min-height: 100vh;
+}
+
+.hero-section {
+  background: radial-gradient(
+    circle at center,
+    #0b0e17 0%,
+    #0a0c14 40%,
+    #080a10 100%
+  );
+}
+
+/* Phone field styles */
+@layer components {
+  /* Shared style for both input boxes */
+  .phone-box {
+    @apply bg-neutral-800 border border-neutral-700 rounded-md h-10
+           text-sm text-white placeholder-gray-400
+           focus:outline-none focus:ring-2 focus:ring-brand-500
+           flex items-center;
+  }
+
+  /* ----- react-select classes (prefix "rs") ----- */
+  .rs__control            { @apply phone-box pl-2 !important; }
+  .rs__value-container    { @apply p-0 !important; }
+  .rs__indicator,
+  .rs__indicator-separator{ @apply hidden !important; }
+  .rs__single-value       { @apply flex items-center gap-1 !important; }
+  .rs__menu               { @apply bg-neutral-900 rounded-lg shadow-xl w-72 z-[60] !important; }
+  .rs__menu-list          { @apply max-h-60 overflow-y-auto !important; }
+  .rs__option             { @apply text-white text-sm px-3 py-2 !important; }
+  .rs__option--is-focused { @apply bg-neutral-700 !important; }
+  .rs__placeholder        { @apply text-gray-400 !important; }
+
+  /* Flag icons use "fi fi-xx" classes from flag-icons */
+  .fi { @apply h-4 w-6 rounded-sm; }
+}
+
+/* Form input styles with green focus ring */
+@layer utilities {
+  .form-input {
+    @apply w-full rounded-md bg-neutral-800 px-4 py-3 text-sm
+           text-white placeholder-gray-400 border border-neutral-700
+           focus:outline-none focus:ring-2 focus:ring-brand-500 
+           focus:border-transparent transition-shadow duration-200;
+  }
+}
+
+/* Optimized styles for modals */
+@layer utilities {
+  .gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+  }
+}
+
+/* Global typography styles */
+h1, h2 {
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+h1 {
+  font-size: 64px;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+p {
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+/* Responsive typography */
+@media (max-width: 1024px) {
+  h1 {
+    font-size: 48px;
+  }
+  
+  h2 {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 36px;
+  }
+  
+  h2 {
+    font-size: 18px;
+  }
+  
+  h3 {
+    font-size: 18px;
+  }
+}
+
+/* Extra small screens and when cropped */
+@media (max-width: 400px) {
+  h1 {
+    font-size: 24px;
+    line-height: 1.2;
+  }
+  
+  h2 {
+    font-size: 16px;
+    line-height: 1.3;
+  }
+  
+  h3 {
+    font-size: 16px;
+    line-height: 1.3;
+  }
+  
+  p {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  
+  .hero {
+    padding: 4px !important;
+    grid-template-columns: 1fr !important;
+  }
+  
+  section {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+  
+  button {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    font-size: 14px !important;
+  }
+}
+
+/* Custom utilities for consistent spacing and effects */
+@layer utilities {
+  .shadow-default {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  .shadow-hover-glow {
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1), 0 0 16px rgba(22,214,143,0.6);
+  }
+}
+
+/* Global card hover glow component */
+@layer components {
+  .card-hover-glow {
+    @apply transition-shadow duration-300 shadow-[0_4px_8px_rgba(0,0,0,0.1)];
+  }
+  
+  .card-hover-glow:hover {
+    @apply shadow-[0_8px_16px_rgba(0,0,0,0.1),0_0_20px_rgba(22,214,143,0.6)];
+  }
+
+  /* Continuous Scrolling Testimonials - Full Width */
+  .testimonial-scroll-container {
+    overflow: hidden;
+    padding: 3rem 0;
+    position: relative;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+  }
+  
+  .testimonial-scroll-track {
+    display: flex;
+    gap: 2rem;
+    animation: scroll-testimonials 45s linear infinite;
+    will-change: transform;
+    padding-left: 2rem;
+    /* Animation handles all transforms */
+  }
+  
+  /* Smooth hover pause effect */
+  .testimonial-scroll-container:hover .testimonial-scroll-track {
+    animation-play-state: paused;
+  }
+  
+  /* Individual card hover enhancement - also slows down */
+  .testimonial-card:hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  @keyframes scroll-testimonials {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      /* Move left by width of 5 cards + gaps */
+      transform: translateX(calc(-350px * 5 - 2rem * 4));
+    }
+  }
+  
+  /* Testimonial card styling - matching About page glow */
+  .testimonial-card {
+    flex: 0 0 auto;
+    width: 350px;
+    min-height: 280px;
+    background: rgb(55, 65, 81);
+    border-radius: 1rem;
+    padding: 2rem;
+    border: 1px solid rgb(75, 85, 99);
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Match About page shadow exactly */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .testimonial-card:hover {
+    /* Match About page hover glow exactly */
+    box-shadow: 
+      0 8px 16px rgba(0, 0, 0, 0.1),
+      0 0 20px rgba(22, 214, 143, 0.6);
+    transform: translateY(-4px);
+  }
+  
+  /* Smooth pause when hovering over any card */
+  .testimonial-scroll-container:has(.testimonial-card:hover) .testimonial-scroll-track {
+    animation-play-state: paused;
+  }
+  
+  /* Wrapper adjustments */
+  .testimonial-carousel-wrapper {
+    overflow: visible;
+    padding: 2rem 0;
+    margin: 0;
+    position: relative;
+    width: 100%;
+  }
+  
+  /* Desktop - Full width animation */
+  @media (min-width: 1024px) {
+    .testimonial-carousel-wrapper {
+      padding-left: 0;
+      padding-right: 0;
+    }
+    
+    .testimonial-scroll-container {
+      width: 100vw;
+      margin-left: calc(-50vw + 50%);
+    }
+    
+    .testimonial-scroll-track {
+      animation: scroll-testimonials-desktop 45s linear infinite;
+    }
+    
+    /* Desktop hover pause */
+    .testimonial-scroll-container:hover .testimonial-scroll-track,
+    .testimonial-scroll-container:has(.testimonial-card:hover) .testimonial-scroll-track {
+      animation-play-state: paused;
+    }
+  }
+  
+  /* Desktop keyframes - seamless loop */
+  @keyframes scroll-testimonials-desktop {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      /* Move left by width of 5 cards + gaps */
+      transform: translateX(calc(-350px * 5 - 2rem * 4));
+    }
+  }
+  
+  /* Tablet adjustments */
+  @media (max-width: 1023px) {
+    .testimonial-carousel-wrapper {
+      padding-left: 0;
+      padding-right: 0;
+    }
+    
+    .testimonial-scroll-container {
+      width: 100vw;
+      margin-left: calc(-50vw + 50%);
+    }
+    
+    .testimonial-card {
+      width: 300px;
+      min-height: 260px;
+      padding: 1.5rem;
+    }
+    
+    .testimonial-scroll-track {
+      animation: scroll-testimonials-tablet 40s linear infinite;
+    }
+    
+    /* Tablet hover pause */
+    .testimonial-scroll-container:hover .testimonial-scroll-track,
+    .testimonial-scroll-container:has(.testimonial-card:hover) .testimonial-scroll-track {
+      animation-play-state: paused;
+    }
+  }
+  
+  /* Tablet keyframes - seamless loop */
+  @keyframes scroll-testimonials-tablet {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      /* Move left by width of 5 cards + gaps */
+      transform: translateX(calc(-300px * 5 - 2rem * 4));
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .testimonial-carousel-wrapper {
+      padding-left: 0;
+      padding-right: 0;
+    }
+    
+    .testimonial-scroll-container {
+      width: 100vw;
+      margin-left: calc(-50vw + 50%);
+      padding: 2rem 0;
+    }
+    
+    .testimonial-card {
+      width: 280px;
+      min-height: 240px;
+      padding: 1.25rem;
+    }
+    
+    .testimonial-scroll-track {
+      animation: scroll-testimonials-mobile 35s linear infinite;
+    }
+    
+    /* Mobile hover pause */
+    .testimonial-scroll-container:hover .testimonial-scroll-track,
+    .testimonial-scroll-container:has(.testimonial-card:hover) .testimonial-scroll-track {
+      animation-play-state: paused;
+    }
+  }
+  
+  /* Mobile keyframes - seamless loop */
+  @keyframes scroll-testimonials-mobile {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      /* Move left by width of 5 cards + gaps */
+      transform: translateX(calc(-280px * 5 - 2rem * 4));
+    }
+  }
+  
+  .footer-link {
+    @apply text-[#16d68f] hover:underline transition-colors duration-200 hover:text-white;
+  }
+  
+  /* Ensure Article grid doesn't clip sticky elements */
+  .article-container {
+    overflow: visible;
+  }
+}
+
+/* Force white text in article content */
+.article-content p,
+.article-content li,
+.article-content span,
+.article-content h1,
+.article-content h2,
+.article-content h3,
+.article-content h4,
+.article-content h5,
+.article-content h6,
+.article-content a,
+.article-content strong,
+.article-content em,
+.article-content blockquote p {
+  color: #FFFFFF !important;
+}
+
+.article-content blockquote {
+  border-left-color: #16d68f !important;
+  background-color: #111 !important;
+}
+
+/* Carousel styling */
+.carousel {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 24px;
+  /* Hide scrollbar */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  width: 100%;
+  max-width: 100%;
+  background-color: #000;
+}
+
+.carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+.promo-card {
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 100%;
+}
+
+.hide-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* Ensure sidebar has black background */
+aside {
+  background-color: #000 !important;
+  color: white;
+}
+
+/* Specific style for mobile sidebar to prevent white box */
+.lg\:hidden.fixed.bottom-0 {
+  background-color: #000 !important;
+  box-shadow: none !important;
+}
+
+/* Remove any white boxes that might appear when cropped */
+aside *, .icon-btn, .icon-btn * {
+  background-color: transparent;
+}
+

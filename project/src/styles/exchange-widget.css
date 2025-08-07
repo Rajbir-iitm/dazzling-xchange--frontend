@@ -1,0 +1,148 @@
+/* Exchange Widget Premium Styles */
+
+.exchange-widget-wrapper {
+  position: relative;
+  overflow: visible;
+}
+
+.exchange-widget-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: -40px;
+  background: radial-gradient(circle at center, transparent 60%, rgba(0,0,0,0.8));
+  pointer-events: none;
+  z-index: -1;
+}
+
+.exchange-widget {
+  background: radial-gradient(circle at center, rgba(16,185,129,0.1), transparent 70%);
+  backdrop-filter: blur(8px);
+  background-color: rgba(20,27,39,0.6);
+  border-radius: 1.5rem;
+  box-shadow: 
+    inset 0 0 20px rgba(16,185,129,0.15),
+    0 0 40px rgba(16,185,129,0.3),
+    0 0 80px rgba(16,185,129,0.1);
+  transition: all 0.4s ease;
+  /* Fixed dimensions to prevent size changes */
+  width: 380px;
+  height: 300px;
+  min-width: 380px;
+  min-height: 300px;
+  max-width: 380px;
+  max-height: 300px;
+  /* Better spacing and layout for fixed size */
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.exchange-widget:hover {
+  transform: scale(1.02);
+  box-shadow: 
+    inset 0 0 30px rgba(16,185,129,0.25),
+    0 0 60px rgba(16,185,129,0.4),
+    0 0 120px rgba(16,185,129,0.15);
+}
+
+/* Animated Exchange Icon */
+.swap-icon {
+  animation: spin 6s linear infinite;
+}
+
+@keyframes spin {
+  from { 
+    transform: rotate(0deg);
+  }
+  to { 
+    transform: rotate(360deg);
+  }
+}
+
+/* Color-coded Delta Animations - Single fade-in only */
+.delta-positive {
+  color: #10B981;
+  text-shadow: 0 0 6px rgba(16,185,129,0.6);
+  animation: fade-in-green 0.8s ease-out forwards;
+}
+
+.delta-negative {
+  color: #EF4444;
+  text-shadow: 0 0 6px rgba(239,68,68,0.6);
+  animation: fade-in-red 0.8s ease-out forwards;
+}
+
+@keyframes fade-in-green {
+  from {
+    opacity: 0;
+    text-shadow: 0 0 0px rgba(16,185,129,0);
+  }
+  to {
+    opacity: 1;
+    text-shadow: 0 0 6px rgba(16,185,129,0.6);
+  }
+}
+
+@keyframes fade-in-red {
+  from {
+    opacity: 0;
+    text-shadow: 0 0 0px rgba(239,68,68,0);
+  }
+  to {
+    opacity: 1;
+    text-shadow: 0 0 6px rgba(239,68,68,0.6);
+  }
+}
+
+/* Mobile Responsiveness - Fixed dimensions maintained */
+@media (max-width: 640px) {
+  .exchange-widget {
+    /* Keep fixed dimensions but adjust padding for mobile */
+    padding: 1.5rem;
+    border-radius: 1.25rem;
+    width: 320px;
+    height: 260px;
+    min-width: 320px;
+    min-height: 260px;
+    max-width: 320px;
+    max-height: 260px;
+  }
+  
+  .exchange-widget:hover {
+    transform: scale(1.01);
+  }
+}
+
+/* Accessibility Improvements */
+@media (prefers-reduced-motion: reduce) {
+  .swap-icon,
+  .delta-positive,
+  .delta-negative {
+    animation: none;
+  }
+  
+  .exchange-widget {
+    transition: none;
+  }
+  
+  .exchange-widget:hover {
+    transform: none;
+  }
+}
+
+/* Focus states for accessibility */
+.exchange-widget:focus-visible {
+  outline: 2px solid rgba(16,185,129,0.8);
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .exchange-widget {
+    border: 2px solid rgba(16,185,129,0.8);
+    background-color: rgba(0,0,0,0.9);
+  }
+}
