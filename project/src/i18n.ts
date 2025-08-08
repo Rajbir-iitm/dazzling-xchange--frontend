@@ -10,6 +10,7 @@ i18n
   .init({
     fallbackLng: 'en',
     debug: false,
+  keySeparator: false, // Treat dotted keys as flat keys in JSON
     supportedLngs: [
       'en','es','fr','de','it','pt',
       'zh','ja','ko','ar','hi','ru',

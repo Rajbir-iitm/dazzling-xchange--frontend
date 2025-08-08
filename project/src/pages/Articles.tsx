@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Search } from 'lucide-react';
 import Footer from '../components/Footer';
 import { collection, getDocs, query as fbQuery, orderBy } from 'firebase/firestore';
 import { db } from '../lib/firebase';
+import { useTranslation } from 'react-i18next';
 
 interface Article {
   id: string;
@@ -13,7 +14,7 @@ interface Article {
 }
 
 function Articles() {
-  // Removed unused t and navigate variables
+  const { t } = useTranslation();
   const [articles, setArticles] = useState<Article[]>([]);
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(true);
@@ -93,12 +94,12 @@ function Articles() {
         <div className="max-w-3xl mx-auto flex flex-col items-center text-center space-y-6">
           {/* Title */}
           <h1 className="text-secondary text-4xl lg:text-5xl font-bold font-primary">
-            Articles & Tutorials
+            {t('articles.title')}
           </h1>
           
           {/* Subtitle */}
           <p className="text-neutral-300 text-lg lg:text-xl font-primary">
-            Browse our latest guides, tutorials, and deep-dives into international money transfers.
+            {t('articles.subtitle')}
           </p>
           
           {/* Search Bar */}
@@ -106,7 +107,7 @@ function Articles() {
             <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-neutral-500 w-5 h-5" />
             <input
               type="search"
-              placeholder="Search articles…"
+              placeholder={t('articles.searchPlaceholder')}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               className="
@@ -127,7 +128,7 @@ function Articles() {
           {/* Results Count */}
           {query && (
             <p className="text-neutral-400 mb-6 font-primary">
-              {filteredArticles.length} article{filteredArticles.length !== 1 ? 's' : ''} found
+              {t('articles.results', { count: filteredArticles.length })}
             </p>
           )}
 
@@ -152,7 +153,7 @@ function Articles() {
                       {article.title}
                     </h3>
                     <p className="text-neutral-300 text-sm font-primary leading-relaxed">
-                      {article.description || 'Click to view this chapter content.'}
+                      {article.description || t('articles.viewChapter')}
                     </p>
                   </div>
                 </Link>
@@ -163,16 +164,16 @@ function Articles() {
               <div className="text-neutral-500 mb-4">
                 <Search className="w-16 h-16 mx-auto mb-4 opacity-50" />
               </div>
-              <h3 className="text-secondary text-xl font-semibold font-primary mb-2">No articles found</h3>
+              <h3 className="text-secondary text-xl font-semibold font-primary mb-2">{t('articles.emptyTitle')}</h3>
               <p className="text-neutral-400 font-primary">
-                Try adjusting your search terms or browse all articles.
+                {t('articles.emptySubtitle')}
               </p>
               {query && (
                 <button
                   onClick={() => setQuery('')}
                   className="mt-4 px-6 py-2 bg-primary text-neutral-900 rounded-full font-medium font-primary hover:bg-accent transition-colors duration-200"
                 >
-                  Clear Search
+                  {t('actions.clearSearch')}
                 </button>
               )}
             </div>
