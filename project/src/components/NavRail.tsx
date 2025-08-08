@@ -145,13 +145,18 @@ const NavRail: React.FC<NavRailProps> = React.memo(({ onOpenSettings }) => {
           </motion.div>
 
           {/* Company Logo */}
-          <div className="flex items-center justify-center w-12 h-12 mx-auto">
+          <Link 
+            to="/"
+            className="flex items-center justify-center w-12 h-12 mx-auto rounded-lg hover:bg-neutral-800 transition-colors duration-200 group"
+            title="Home"
+            aria-label="Go to Home"
+          >
             <img 
               src="https://i.ibb.co/VcB3xpz1/Untitled-design-2025-07-02-T031441-104.png" 
               alt="Dazzling Xchange Logo" 
-              className="w-10 h-10 object-contain"
+              className="w-10 h-10 object-contain group-hover:scale-105 transition-transform duration-200"
             />
-          </div>
+          </Link>
         </div>
       </motion.aside>
       

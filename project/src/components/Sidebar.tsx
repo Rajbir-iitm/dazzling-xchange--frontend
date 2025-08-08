@@ -93,13 +93,18 @@ function Sidebar({ onOpenSettings }: SidebarProps) {
           </button>
 
           {/* Company logo */}
-          <div className="w-12 h-12 flex items-center justify-center">
+          <Link 
+            to="/"
+            className="w-12 h-12 flex items-center justify-center icon-btn group"
+            title="Home"
+            aria-label="Go to Home"
+          >
             <img 
               src="https://i.ibb.co/VcB3xpz1/Untitled-design-2025-07-02-T031441-104.png" 
               alt="Dazzling Xchange Logo" 
-              className="w-10 h-10 object-contain"
+              className="w-10 h-10 object-contain group-hover:scale-105 transition-transform duration-200"
             />
-          </div>
+          </Link>
         </div>
       </aside>
       

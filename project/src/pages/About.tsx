@@ -42,17 +42,6 @@ function About() {
               >
                 At Dazzling Xchange, we help businesses break barriers and operate confidently on the global stage. Our platform simplifies cross-border transactions, provides transparent currency exchange solutions, and ensures personalized support every step of the way.
               </motion.p>
-              
-              <motion.div 
-                className="flex flex-wrap gap-4"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6, duration: 0.6 }}
-              >
-                <button className="px-8 py-4 border-2 border-primary text-primary bg-transparent rounded-full font-medium font-primary shadow-lg hover:scale-105 hover:bg-primary hover:text-neutral-900 hover:shadow-glow-primary transition-all duration-300 group">
-                  <span className="relative z-10">Discover Our Platform</span>
-                </button>
-              </motion.div>
             </motion.div>
 
             {/* Right: Simple Visual Element */}

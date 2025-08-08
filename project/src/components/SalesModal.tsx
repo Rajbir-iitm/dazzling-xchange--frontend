@@ -6,6 +6,24 @@ import { useSalesModalStore } from '../stores/salesModalStore';
 import PhoneField, { PhoneValue } from './PhoneField';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../lib/firebase';
+import { countries } from '../utils/countries';
+
+// Function to detect country based on dial code
+const getCountryFromDialCode = (dialCode: string): string => {
+  // Handle various formats: "213", "+213", "213 "
+  const cleanDialCode = dialCode.toString().replace(/[^0-9]/g, '');
+  
+  // Try to find exact match first
+  let country = countries.find(c => c.dial === `+${cleanDialCode}`);
+  
+  // If not found, try without the '+' in case the data format is different
+  if (!country) {
+    country = countries.find(c => c.dial.replace('+', '') === cleanDialCode);
+  }
+  
+  console.log('Dial code input:', dialCode, 'Cleaned:', cleanDialCode, 'Found country:', country?.name);
+  return country ? country.name : `Unknown (+${cleanDialCode})`;
+};
 
 const SalesModal = () => {
   const { open, closeModal } = useSalesModalStore();
@@ -15,13 +33,21 @@ const SalesModal = () => {
     email: '',
     company: 'Kim Industries',
     message: '',
-    country: 'USA/Canada',
+    country: getCountryFromDialCode('61'), // Auto-detect from initial dial code
     date: new Date().toISOString(),
     resolved: false
   });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Auto-update country when phone dial code changes
+  useEffect(() => {
+    console.log('Phone state changed:', phone);
+    const detectedCountry = getCountryFromDialCode(phone.dialCode);
+    console.log('Setting country to:', detectedCountry);
+    setFormData(prev => ({ ...prev, country: detectedCountry }));
+  }, [phone.dialCode]);
 
   // Simple scroll lock
   useEffect(() => {
@@ -153,17 +179,14 @@ const SalesModal = () => {
                       placeholder="Company"
                       className="form-input"
                     />
-                    <select
+                    <input
+                      type="text"
                       value={formData.country}
                       onChange={(e) => setFormData(prev => ({ ...prev, country: e.target.value }))}
-                      className="form-input bg-neutral-800 text-white"
-                    >
-                      <option value="USA/Canada">USA/Canada</option>
-                      <option value="Europe">Europe</option>
-                      <option value="Asia">Asia</option>
-                      <option value="Australia/NZ">Australia/New Zealand</option>
-                      <option value="Other">Other</option>
-                    </select>
+                      placeholder="Country (auto-detected from phone)"
+                      className="form-input"
+                      title="Country is auto-detected from your phone number but can be edited"
+                    />
                     <textarea
                       value={formData.message}
                       onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
