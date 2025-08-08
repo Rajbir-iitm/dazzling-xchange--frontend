@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ArrowLeft, Clock, FileText } from 'lucide-react';
+import { ArrowLeft, Clock, FileText, BookOpen } from 'lucide-react';
+import { motion } from 'framer-motion';
 import Footer from '../components/Footer';
 import FloatingTOC from '../components/FloatingTOC';
-// Removed empty floating-toc.css import
 import { doc, getDoc, collection, query, orderBy, getDocs } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 
@@ -219,9 +219,39 @@ function ArticleDetail() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-neutral-950">
-        <div className="w-64 h-64 md:w-80 md:h-80 rounded-full bg-gradient-to-br from-primary/20 to-accent/30 animate-pulse flex items-center justify-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-primary border-opacity-80"></div>
+      <div className="bg-neutral-950 min-h-screen">
+        <div className="max-w-7xl mx-auto px-6 py-20 lg:px-24">
+          <motion.div 
+            className="space-y-8"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            {/* Loading back link */}
+            <div className="w-32 h-6 bg-neutral-800 rounded animate-pulse"></div>
+            
+            {/* Loading title */}
+            <div className="space-y-4">
+              <div className="w-3/4 h-12 bg-neutral-800 rounded animate-pulse"></div>
+              <div className="w-full h-6 bg-neutral-800 rounded animate-pulse"></div>
+              <div className="w-2/3 h-6 bg-neutral-800 rounded animate-pulse"></div>
+            </div>
+            
+            {/* Loading image */}
+            <div className="w-full h-96 bg-neutral-800 rounded-2xl animate-pulse"></div>
+            
+            {/* Loading content */}
+            <div className="space-y-6">
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="space-y-3">
+                  <div className="w-1/2 h-8 bg-neutral-800 rounded animate-pulse"></div>
+                  <div className="w-full h-4 bg-neutral-800 rounded animate-pulse"></div>
+                  <div className="w-5/6 h-4 bg-neutral-800 rounded animate-pulse"></div>
+                  <div className="w-3/4 h-4 bg-neutral-800 rounded animate-pulse"></div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </div>
     );
@@ -230,18 +260,30 @@ function ArticleDetail() {
   if (!article) {
     return (
       <div className="bg-neutral-950 min-h-screen">
-        <div className="py-16 px-8 lg:px-16">
-          <div className="max-w-6xl mx-auto text-center">
-            <h1 className="text-secondary text-4xl font-bold font-primary mb-4">Article Not Found</h1>
-            <p className="text-neutral-300 font-primary mb-8">The article you're looking for doesn't exist.</p>
+        <div className="max-w-7xl mx-auto px-6 py-20 lg:px-24">
+          <motion.div 
+            className="text-center space-y-8"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="w-24 h-24 bg-neutral-800 rounded-full flex items-center justify-center mx-auto">
+              <FileText className="w-12 h-12 text-neutral-600" />
+            </div>
+            <div className="space-y-4">
+              <h1 className="text-4xl font-bold text-secondary font-primary">Article Not Found</h1>
+              <p className="text-neutral-300 font-primary text-lg max-w-md mx-auto">
+                The article you're looking for doesn't exist or has been removed.
+              </p>
+            </div>
             <Link
               to="/articles"
-              className="inline-flex items-center px-6 py-3 bg-primary text-neutral-900 rounded-full font-medium font-primary hover:bg-accent transition-colors duration-200"
+              className="inline-flex items-center px-8 py-3 bg-primary text-neutral-900 rounded-full font-medium font-primary hover:bg-accent transition-all duration-200 hover:scale-105"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Articles
             </Link>
-          </div>
+          </motion.div>
         </div>
       </div>
     );
@@ -249,43 +291,85 @@ function ArticleDetail() {
 
   return (
     <div className="bg-neutral-950 min-h-screen">
-      <div className="py-16 px-8 lg:px-16">
-        <div className="max-w-6xl mx-auto">
-          {/* Back Link & Header */}
-          <Link
-            to="/articles"
-            className="inline-flex items-center text-neutral-400 mb-6 hover:text-secondary transition-colors duration-200 group font-primary"
+      <div className="max-w-7xl mx-auto px-6 py-20 lg:px-24">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          {/* Back Link & Breadcrumb */}
+          <motion.div
+            className="mb-12"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
           >
-            <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform duration-200" />
-            Back to Articles
-          </Link>
+            <Link
+              to="/articles"
+              className="inline-flex items-center text-neutral-400 hover:text-primary transition-colors duration-200 group font-primary"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform duration-200" />
+              <span className="border-b border-transparent group-hover:border-primary transition-all duration-200">
+                Back to Articles
+              </span>
+            </Link>
+          </motion.div>
 
-          <h1 className="text-secondary text-4xl lg:text-5xl font-bold font-primary mb-4">
-            {article.title}
-          </h1>
-          
-          <p className="text-neutral-300 mb-6 max-w-3xl text-lg leading-relaxed font-primary">
-            {article.description}
-          </p>
+          {/* Article Header */}
+          <motion.div 
+            className="space-y-6 mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+          >
+            <div className="flex items-center space-x-4 text-primary">
+              <BookOpen className="w-6 h-6" />
+              <span className="text-sm font-medium font-primary uppercase tracking-wider">Guide</span>
+            </div>
+            
+            <h1 className="text-4xl lg:text-5xl font-bold text-secondary font-primary leading-tight">
+              {article.title}
+            </h1>
+            
+            <p className="text-neutral-300 text-lg lg:text-xl leading-relaxed font-primary max-w-4xl">
+              {article.description}
+            </p>
+
+            {/* Article metadata */}
+            <div className="flex flex-wrap gap-6 text-neutral-400 text-sm font-primary pt-4 border-t border-neutral-800">
+              <div className="flex items-center">
+                <Clock className="w-4 h-4 mr-2" />
+                <span>{article?.topics?.length || 0} sections</span>
+              </div>
+              <div className="flex items-center">
+                <FileText className="w-4 h-4 mr-2" />
+                <span>Comprehensive Guide</span>
+              </div>
+            </div>
+          </motion.div>
 
           {/* Featured image */}
-          <div className="w-full h-64 sm:h-80 md:h-96 bg-gradient-to-br from-neutral-900 to-neutral-950 rounded-2xl mb-8 overflow-hidden">
+          <motion.div 
+            className="w-full h-64 sm:h-80 md:h-96 bg-gradient-to-br from-neutral-900 to-neutral-950 rounded-2xl mb-12 overflow-hidden"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.6 }}
+          >
             {article?.imageUrl ? (
-              <div className="w-full h-full opacity-70 bg-center bg-cover" style={{ backgroundImage: `url(${article.imageUrl})` }}></div>
+              <img 
+                src={article.imageUrl} 
+                alt={article.title}
+                className="w-full h-full object-cover"
+              />
             ) : (
               <div className="w-full h-full flex items-center justify-center">
-                <FileText className="w-24 h-24 text-neutral-600" />
+                <div className="text-center space-y-4">
+                  <BookOpen className="w-16 h-16 text-neutral-600 mx-auto" />
+                  <p className="text-neutral-500 font-primary">Knowledge Guide</p>
+                </div>
               </div>
             )}
-          </div>
-
-          {/* Article metadata */}
-          <div className="flex flex-wrap gap-4 text-neutral-400 text-sm mb-8 font-primary">
-            <div className="flex items-center">
-              <Clock size={16} className="mr-1" />
-              <span>{article?.topics?.length || 0} Topics</span>
-            </div>
-          </div>
+          </motion.div>
 
           {loading && (
             <div className="max-w-4xl mx-auto p-6">
@@ -302,8 +386,9 @@ function ArticleDetail() {
           
           {errorMessage}
 
-          {/* Bounded floating TOC layout */}
-          <div style={{ display: 'flex', maxWidth: '1200px', margin: '0 auto', position: 'relative' }} ref={articleContainerRef}>
+          {/* Content Layout with TOC */}
+          <div className="flex max-w-none mx-auto relative" ref={articleContainerRef}>
+            {/* Floating TOC */}
             <aside
               ref={tocRef}
               style={tocStyle}
@@ -320,52 +405,105 @@ function ArticleDetail() {
                 <FloatingTOC sections={article.topics} activeSection={activeSection} />
               )}
             </aside>
-            <main style={{ flex: 1, marginLeft: 290 }}>
-              <div className="space-y-12">
-                {article.topics.map((section) => (
-                  <section
+
+            {/* Main Content */}
+            <main className="flex-1" style={{ marginLeft: 290 }}>
+              <motion.div 
+                className="space-y-16"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5, duration: 0.6 }}
+              >
+                {article.topics.map((section, index) => (
+                  <motion.section
                     id={section.id}
                     key={section.id}
                     className="scroll-mt-24"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1, duration: 0.5 }}
+                    viewport={{ once: true, margin: '-100px' }}
                   >
-                    <h2 className="text-2xl text-primary font-semibold font-primary mb-6">
-                      {section.title}
-                    </h2>
-                    <div
-                      className="prose prose-invert max-w-none prose-lg
-                        prose-p:text-neutral-300 prose-p:leading-relaxed prose-p:mb-4
-                        prose-headings:text-secondary prose-headings:font-semibold
-                        prose-strong:text-secondary prose-strong:font-semibold
-                        prose-ul:text-neutral-300 prose-ol:text-neutral-300 prose-ul:mb-4 prose-ol:mb-4
-                        prose-li:text-neutral-300 prose-li:leading-relaxed prose-li:mb-1
-                        prose-a:text-primary prose-a:no-underline hover:prose-a:underline
-                        prose-code:text-primary prose-code:bg-neutral-800 prose-code:px-2 prose-code:py-1 prose-code:rounded
-                        prose-blockquote:border-l-primary prose-blockquote:bg-neutral-800 prose-blockquote:p-4 prose-blockquote:rounded-r-lg prose-blockquote:mb-4
-                        prose-blockquote:text-neutral-300" style={{ color: '#fff' }}
-                    >
-                      {section.content ? (
-                        <div dangerouslySetInnerHTML={{ __html: section.content }} />
-                      ) : section.blocks && section.blocks.length > 0 ? (
-                        <div>
-                          {section.blocks.map((block) => (
-                            <div key={block.id} className="mb-4">
-                              {block.type === 'paragraph' && (
-                                <p>{block.content}</p>
-                              )}
-                              {/* Add other block type handlers as needed */}
-                            </div>
-                          ))}
+                    <div className="bg-neutral-800/50 rounded-2xl p-8 border border-neutral-700/50">
+                      <h2 className="text-2xl lg:text-3xl text-primary font-semibold font-primary mb-6 flex items-center">
+                        <div className="w-8 h-8 bg-primary/20 rounded-lg flex items-center justify-center mr-4">
+                          <span className="text-primary font-bold text-sm">{index + 1}</span>
                         </div>
-                      ) : (
-                        <p>No content available for this topic yet.</p>
-                      )}
+                        {section.title}
+                      </h2>
+                      <div
+                        className="prose prose-invert max-w-none prose-lg
+                          prose-p:text-neutral-300 prose-p:leading-relaxed prose-p:mb-6
+                          prose-headings:text-secondary prose-headings:font-semibold prose-headings:font-primary
+                          prose-h3:text-xl prose-h4:text-lg prose-h3:mb-4 prose-h4:mb-3
+                          prose-strong:text-secondary prose-strong:font-semibold
+                          prose-ul:text-neutral-300 prose-ol:text-neutral-300 prose-ul:mb-6 prose-ol:mb-6
+                          prose-li:text-neutral-300 prose-li:leading-relaxed prose-li:mb-2
+                          prose-a:text-primary prose-a:no-underline hover:prose-a:underline hover:prose-a:text-accent
+                          prose-code:text-primary prose-code:bg-neutral-900 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm
+                          prose-blockquote:border-l-primary prose-blockquote:bg-neutral-900/50 prose-blockquote:p-6 prose-blockquote:rounded-r-xl prose-blockquote:mb-6
+                          prose-blockquote:text-neutral-300 prose-blockquote:italic
+                          prose-img:rounded-xl prose-img:shadow-lg
+                          font-primary"
+                      >
+                        {section.content ? (
+                          <div dangerouslySetInnerHTML={{ __html: section.content }} />
+                        ) : section.blocks && section.blocks.length > 0 ? (
+                          <div className="space-y-4">
+                            {section.blocks.map((block) => (
+                              <div key={block.id}>
+                                {block.type === 'paragraph' && (
+                                  <p className="leading-relaxed">{block.content}</p>
+                                )}
+                                {/* Add other block type handlers as needed */}
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <div className="text-center py-12 text-neutral-500">
+                            <FileText className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                            <p className="font-primary">Content for this section is coming soon.</p>
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  </section>
+                  </motion.section>
                 ))}
-              </div>
+              </motion.div>
+
+              {/* Call to Action */}
+              <motion.div 
+                className="mt-16 text-center bg-gradient-to-br from-neutral-900 to-neutral-950 rounded-2xl p-8 border border-neutral-700/50"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+              >
+                <h3 className="text-2xl font-semibold text-secondary font-primary mb-4">
+                  Ready to get started?
+                </h3>
+                <p className="text-neutral-300 font-primary mb-6 max-w-2xl mx-auto">
+                  Apply what you've learned and start your international money transfer journey with confidence.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Link
+                    to="/articles"
+                    className="inline-flex items-center px-6 py-3 bg-neutral-800 text-secondary rounded-full font-medium font-primary hover:bg-neutral-700 transition-all duration-200 hover:scale-105"
+                  >
+                    <BookOpen className="w-4 h-4 mr-2" />
+                    More Guides
+                  </Link>
+                  <button
+                    onClick={() => window.open('https://odazzlingxchangeptyltd.ebury.com/login/?next=/', '_blank')}
+                    className="inline-flex items-center px-6 py-3 bg-primary text-neutral-900 rounded-full font-medium font-primary hover:bg-accent transition-all duration-200 hover:scale-105"
+                  >
+                    Get Started
+                  </button>
+                </div>
+              </motion.div>
             </main>
           </div>
-        </div>
+        </motion.div>
       </div>
       
       <Footer />
