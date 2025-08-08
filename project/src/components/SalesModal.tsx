@@ -28,18 +28,43 @@ const getCountryFromDialCode = (dialCode: string): string => {
 const SalesModal = () => {
   const { open, closeModal } = useSalesModalStore();
   const [phone, setPhone] = useState<PhoneValue>({ dialCode: '61', number: '' });
-  const [formData, setFormData] = useState({
+  
+  // Initial form state
+  const initialFormData = {
     name: '',
     email: '',
-    company: 'Kim Industries',
+    company: '',
     message: '',
     country: getCountryFromDialCode('61'), // Auto-detect from initial dial code
     date: new Date().toISOString(),
     resolved: false
-  });
+  };
+  
+  const [formData, setFormData] = useState(initialFormData);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Function to clear/reset the form
+  const clearForm = () => {
+    const resetFormData = {
+      ...initialFormData,
+      date: new Date().toISOString(), // Update date to current
+      country: getCountryFromDialCode('61')
+    };
+    setFormData(resetFormData);
+    setPhone({ dialCode: '61', number: '' });
+    setSubmitted(false);
+    setError(null);
+    console.log('Form cache cleared and reset to initial state');
+  };
+
+  // Clear form when modal opens
+  useEffect(() => {
+    if (open) {
+      clearForm();
+    }
+  }, [open]);
 
   // Auto-update country when phone dial code changes
   useEffect(() => {
@@ -129,7 +154,10 @@ const SalesModal = () => {
               {/* Close button */}
               <button
                 type="button"
-                onClick={closeModal}
+                onClick={() => {
+                  clearForm();
+                  closeModal();
+                }}
                 className="absolute top-4 right-4 text-gray-400 hover:text-white hover:bg-neutral-700 rounded-full p-2 transition-all duration-150 z-50 focus:outline-none focus:ring-2 focus:ring-primary active:scale-95"
                 aria-label="Close modal"
               >
@@ -142,7 +170,10 @@ const SalesModal = () => {
                   <p className="text-gray-300 mb-8">Our team will contact you soon to help you open your account.</p>
                   <button
                     type="button"
-                    onClick={() => { setSubmitted(false); closeModal(); }}
+                    onClick={() => { 
+                      clearForm(); 
+                      closeModal(); 
+                    }}
                     className="w-full bg-brand-500 text-neutral-900 rounded-lg px-4 py-3 font-medium hover:bg-brand-600 transition-colors duration-200"
                   >
                     Close
@@ -197,20 +228,29 @@ const SalesModal = () => {
                     {error && (
                       <div className="text-red-500 text-sm mt-2">{error}</div>
                     )}
-                    <button
-                      type="submit"
-                      disabled={loading}
-                      className="w-full mt-6 py-3 rounded-lg bg-brand-500 font-medium text-neutral-900 hover:bg-brand-600 transition-colors duration-200 relative disabled:opacity-70 disabled:cursor-not-allowed"
-                    >
-                      {loading ? (
-                        <>
-                          <Loader className="w-5 h-5 animate-spin inline mr-2" />
-                          Submitting...
-                        </>
-                      ) : (
-                        'Submit Request'
-                      )}
-                    </button>
+                    <div className="flex gap-3 mt-6">
+                      <button
+                        type="button"
+                        onClick={clearForm}
+                        className="flex-1 py-3 rounded-lg bg-neutral-700 font-medium text-white hover:bg-neutral-600 transition-colors duration-200"
+                      >
+                        Clear Form
+                      </button>
+                      <button
+                        type="submit"
+                        disabled={loading}
+                        className="flex-2 py-3 rounded-lg bg-brand-500 font-medium text-neutral-900 hover:bg-brand-600 transition-colors duration-200 relative disabled:opacity-70 disabled:cursor-not-allowed px-8"
+                      >
+                        {loading ? (
+                          <>
+                            <Loader className="w-5 h-5 animate-spin inline mr-2" />
+                            Submitting...
+                          </>
+                        ) : (
+                          'Submit Request'
+                        )}
+                      </button>
+                    </div>
                   </div>
                 </>
               )}
