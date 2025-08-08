@@ -27,7 +27,7 @@ const getCountryFromDialCode = (dialCode: string): string => {
 
 const SalesModal = () => {
   const { open, closeModal } = useSalesModalStore();
-  const [phone, setPhone] = useState<PhoneValue>({ dialCode: '61', number: '' });
+  const [phone, setPhone] = useState<PhoneValue>({ dialCode: '', number: '' });
   
   // Initial form state
   const initialFormData = {
@@ -35,7 +35,7 @@ const SalesModal = () => {
     email: '',
     company: '',
     message: '',
-    country: getCountryFromDialCode('61'), // Auto-detect from initial dial code
+    country: '', // Keep empty initially
     date: new Date().toISOString(),
     resolved: false
   };
@@ -50,10 +50,10 @@ const SalesModal = () => {
     const resetFormData = {
       ...initialFormData,
       date: new Date().toISOString(), // Update date to current
-      country: getCountryFromDialCode('61')
+      country: '' // Keep empty on reset
     };
     setFormData(resetFormData);
-    setPhone({ dialCode: '61', number: '' });
+    setPhone({ dialCode: '', number: '' }); // Reset to empty dial code
     setSubmitted(false);
     setError(null);
     console.log('Form cache cleared and reset to initial state');
@@ -69,9 +69,15 @@ const SalesModal = () => {
   // Auto-update country when phone dial code changes
   useEffect(() => {
     console.log('Phone state changed:', phone);
-    const detectedCountry = getCountryFromDialCode(phone.dialCode);
-    console.log('Setting country to:', detectedCountry);
-    setFormData(prev => ({ ...prev, country: detectedCountry }));
+    // Only set country if dial code is not empty
+    if (phone.dialCode && phone.dialCode.trim() !== '') {
+      const detectedCountry = getCountryFromDialCode(phone.dialCode);
+      console.log('Setting country to:', detectedCountry);
+      setFormData(prev => ({ ...prev, country: detectedCountry }));
+    } else {
+      // Keep country empty if no dial code is selected
+      setFormData(prev => ({ ...prev, country: '' }));
+    }
   }, [phone.dialCode]);
 
   // Simple scroll lock
@@ -214,9 +220,9 @@ const SalesModal = () => {
                       type="text"
                       value={formData.country}
                       onChange={(e) => setFormData(prev => ({ ...prev, country: e.target.value }))}
-                      placeholder="Country (auto-detected from phone)"
+                      placeholder="Country"
                       className="form-input"
-                      title="Country is auto-detected from your phone number but can be edited"
+                      title="Country will be auto-detected when you select a phone code"
                     />
                     <textarea
                       value={formData.message}

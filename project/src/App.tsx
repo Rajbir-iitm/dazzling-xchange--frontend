@@ -7,6 +7,8 @@ import About from './pages/About';
 import Services from './pages/Services';
 import Articles from './pages/Articles';
 import ArticleDetail from './pages/ArticleDetail';
+import TermsOfUse from './pages/TermsOfUse';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 import SalesModal from './components/SalesModal';
 import logo from './assets/Untitled design - 2025-07-02T030507.802.png';
 
@@ -45,6 +47,8 @@ function App() {
             <Route path="/services" element={<Services />} />
             <Route path="/articles" element={<Articles />} />
             <Route path="/articles/:id" element={<ArticleDetail />} />
+            <Route path="/terms" element={<TermsOfUse />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
           </Routes>
         </main>
 

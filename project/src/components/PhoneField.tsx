@@ -25,10 +25,12 @@ const PhoneField: React.FC<Props> = ({ value, onChange }) => {
   );
 
   // Memoize selected country
-  const selectedCountry = useMemo(() => 
-    countries.find(c => c.dial === value.dialCode) || countries[0], 
-    [value.dialCode]
-  );
+  const selectedCountry = useMemo(() => {
+    if (!value.dialCode || value.dialCode.trim() === '') {
+      return null; // No country selected
+    }
+    return countries.find(c => c.dial === value.dialCode) || countries[0];
+  }, [value.dialCode]);
 
   // Memoize handlers to prevent unnecessary re-renders
   const handleCountrySelect = useCallback((c: Country) => {
@@ -49,8 +51,14 @@ const PhoneField: React.FC<Props> = ({ value, onChange }) => {
           className="flex items-center bg-[#23272a] border border-[#374151] rounded-lg px-3 py-2 cursor-pointer select-none"
           onClick={() => setDropdownOpen(v => !v)}
         >
-          <span className="text-white">{selectedCountry.dial}</span>
-          <span className="ml-2 text-white font-semibold">{iso2ToIso3[selectedCountry.code] || selectedCountry.code}</span>
+          {selectedCountry ? (
+            <>
+              <span className="text-white">{selectedCountry.dial}</span>
+              <span className="ml-2 text-white font-semibold">{iso2ToIso3[selectedCountry.code] || selectedCountry.code}</span>
+            </>
+          ) : (
+            <span className="text-gray-400">+93 AFG</span>
+          )}
           <span className="ml-auto text-gray-400">▼</span>
         </div>
         {dropdownOpen && (

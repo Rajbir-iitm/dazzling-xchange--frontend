@@ -76,12 +76,12 @@ function Footer() {
 
           {/* Right: Terms & Privacy */}
           <div className="flex items-start justify-start lg:justify-end space-x-8">
-            <a href="/terms" className="footer-link text-sm">
+            <Link to="/terms" className="footer-link text-sm">
               {t('footer.terms')}
-            </a>
-            <a href="/privacy" className="footer-link text-sm">
+            </Link>
+            <Link to="/privacy" className="footer-link text-sm">
               {t('footer.privacy')}
-            </a>
+            </Link>
           </div>
         </div>
       </div>
