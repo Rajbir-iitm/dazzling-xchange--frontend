@@ -176,7 +176,7 @@ function Home() {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            What Our Customers Say
+            {t('testimonials.title')}
           </motion.h2>
 
           {/* Continuous scroll container */}
@@ -216,9 +216,9 @@ function Home() {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            International Trade Payment Made Easy.
+            {t('trade.title')}
             <br />
-            Global Business Payment Made Easy.
+            {t('trade.subtitle')}
           </motion.h2>
           <motion.p 
             className="text-lg text-neutral-300 leading-relaxed font-primary"
@@ -227,9 +227,7 @@ function Home() {
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            Unleash your global growth. From payments and collections, to tailored risk management and unsecured financing.
-            DAZZLING XCHANGE is your
-            <strong className="text-primary"> one-stop shop for all your international trade needs.</strong>
+            {t('trade.description')}
           </motion.p>
           <motion.button 
             className="px-8 py-4 border-2 border-primary text-primary bg-transparent rounded-full font-medium font-primary shadow-lg hover:scale-105 hover:bg-primary hover:text-neutral-900 hover:shadow-glow-primary transition-all duration-300 group mt-4"
@@ -240,7 +238,7 @@ function Home() {
             viewport={{ once: true }}
             aria-label="Get started with international trade payments"
           >
-            <span className="relative z-10">Ready to Get Started?</span>
+            <span className="relative z-10">{t('trade.cta')}</span>
           </motion.button>
         </div>
       </section>
@@ -264,24 +262,23 @@ function Home() {
               viewport={{ once: true }}
             >
               <h3 className="text-3xl lg:text-4xl font-semibold text-white font-primary">
-                Smart Global Financial Solutions for Modern Businesses
+                {t('global.title')}
               </h3>
               <p className="text-lg text-neutral-300 leading-relaxed font-primary">
-                We simplify cross-border commerce by providing intelligent financial solutions that adapt to your business needs. 
-                From instant payments to comprehensive risk management, we're your partner in global expansion.
+                {t('global.description')}
               </p>
               <div className="flex flex-wrap gap-4">
                 <div className="flex items-center space-x-2">
                   <span className="w-2 h-2 rounded-full bg-primary"></span>
-                  <span className="text-neutral-300 font-primary">Instant Processing</span>
+                  <span className="text-neutral-300 font-primary">{t('global.features.instant')}</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <span className="w-2 h-2 rounded-full bg-primary"></span>
-                  <span className="text-neutral-300 font-primary">24/7 Support</span>
+                  <span className="text-neutral-300 font-primary">{t('global.features.support')}</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <span className="w-2 h-2 rounded-full bg-primary"></span>
-                  <span className="text-neutral-300 font-primary">Global Reach</span>
+                  <span className="text-neutral-300 font-primary">{t('global.features.reach')}</span>
                 </div>
               </div>
             </motion.div>
@@ -298,7 +295,7 @@ function Home() {
                 <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto">
                   <span className="text-primary text-2xl">🌐</span>
                 </div>
-                <p className="text-neutral-400 font-primary">Global Network Visualization</p>
+                <p className="text-neutral-400 font-primary">{t('global.networkTitle')}</p>
               </div>
             </motion.div>
           </div>
@@ -321,19 +318,19 @@ function Home() {
           >
             <div className="text-center">
               <p className="text-4xl font-bold text-white font-primary">$130B+</p>
-              <p className="text-neutral-400 font-primary">Worth of Transactions</p>
+              <p className="text-neutral-400 font-primary">{t('stats.transactions')}</p>
             </div>
             <div className="text-center">
               <p className="text-4xl font-bold text-white font-primary">1M+</p>
-              <p className="text-neutral-400 font-primary">Merchants Joined</p>
+              <p className="text-neutral-400 font-primary">{t('stats.merchants')}</p>
             </div>
             <div className="text-center">
               <p className="text-4xl font-bold text-white font-primary">30X</p>
-              <p className="text-neutral-400 font-primary">Faster Transactions</p>
+              <p className="text-neutral-400 font-primary">{t('stats.faster')}</p>
             </div>
             <div className="text-center">
               <p className="text-4xl font-bold text-white font-primary">1K+</p>
-              <p className="text-neutral-400 font-primary">Clients Served Worldwide</p>
+              <p className="text-neutral-400 font-primary">{t('stats.clients')}</p>
             </div>
           </motion.div>
         </div>
@@ -345,7 +342,7 @@ function Home() {
         aria-labelledby="why-trust"
       >
         <h2 id="why-trust" className="text-3xl lg:text-4xl font-semibold text-white text-center font-primary mb-16">
-          Why Businesses Trust Dazzling Xchange
+          {t('trust.title')}
         </h2>
 
         {/* Trust Cards Grid */}
@@ -353,26 +350,26 @@ function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
-                title: "Trusted Regulatory Compliance",
-                description: "Fully licensed and regulated by financial authorities worldwide",
+                title: t('trust.cards.regulatory.title'),
+                description: t('trust.cards.regulatory.description'),
                 icon: "🛡️",
                 bgGradient: "from-blue-500/20 to-primary/20"
               },
               {
-                title: "Fast and Flexible Financing",
-                description: "Quick access to funding with flexible terms tailored to your needs",
+                title: t('trust.cards.financing.title'),
+                description: t('trust.cards.financing.description'),
                 icon: "⚡",
                 bgGradient: "from-yellow-500/20 to-primary/20"
               },
               {
-                title: "Tailored Business Solutions",
-                description: "Customized financial solutions designed for your specific industry",
+                title: t('trust.cards.solutions.title'),
+                description: t('trust.cards.solutions.description'),
                 icon: "🎯",
                 bgGradient: "from-purple-500/20 to-primary/20"
               },
               {
-                title: "Global Partnership Network",
-                description: "Extensive network of banking partners across 130+ countries",
+                title: t('trust.cards.network.title'),
+                description: t('trust.cards.network.description'),
                 icon: "🌐",
                 bgGradient: "from-green-500/20 to-primary/20"
               }
@@ -410,7 +407,7 @@ function Home() {
                     <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center">
                       <span className="text-neutral-900 text-sm font-bold">✓</span>
                     </div>
-                    <span className="ml-2 text-primary text-sm font-medium font-primary">Verified</span>
+                    <span className="ml-2 text-primary text-sm font-medium font-primary">{t('trust.verified')}</span>
                   </div>
                 </div>
               </motion.div>
@@ -431,7 +428,7 @@ function Home() {
             onClick={openSalesModal}
             aria-label="Start your business journey with Dazzling Xchange"
           >
-            Start Your Journey
+            {t('trust.cta')}
           </button>
         </motion.div>
       </section>
