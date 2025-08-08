@@ -89,7 +89,7 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                 <X className="w-6 h-6" />
               </button>
               
-              <h2 className="text-white text-2xl font-semibold mb-6">{t('settings.title')}</h2>
+              <h2 className="text-white text-2xl font-semibold mb-6">{t('settings.language')}</h2>
               
               <div className="mb-6">
                 <label htmlFor="language-select" className="block text-gray-300 mb-2">

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Home, UserCircle, Briefcase, BookOpen, Settings } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 interface NavRailProps {
   onOpenSettings: () => void;
@@ -24,6 +25,7 @@ const navItems: NavItem[] = [
 const NavRail: React.FC<NavRailProps> = React.memo(({ onOpenSettings }) => {
   const location = useLocation();
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+  const { t } = useTranslation();
 
   const isActive = (path: string) => {
     if (path === '/articles') {
@@ -122,8 +124,8 @@ const NavRail: React.FC<NavRailProps> = React.memo(({ onOpenSettings }) => {
             <button
               onClick={onOpenSettings}
               className="flex items-center h-12 px-3 rounded-lg text-neutral-400 hover:text-primary hover:bg-neutral-800 transition-colors duration-200 group relative overflow-hidden whitespace-nowrap w-full"
-              title="Settings"
-              aria-label="Settings"
+              title={t('settings.language')}
+              aria-label={t('settings.language')}
             >
               <Settings className="w-6 h-6 flex-shrink-0 transition-colors duration-200" />
               
@@ -137,7 +139,7 @@ const NavRail: React.FC<NavRailProps> = React.memo(({ onOpenSettings }) => {
                     transition={{ duration: 0.2, ease: 'easeOut' }}
                     className="ml-3 font-medium"
                   >
-                    Settings
+                    {t('settings.language')}
                   </motion.span>
                 )}
               </AnimatePresence>
