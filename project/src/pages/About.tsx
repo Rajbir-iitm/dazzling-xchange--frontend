@@ -31,7 +31,7 @@ function About() {
                 <p className="text-primary text-lg lg:text-xl font-medium font-primary tracking-wide mb-4 uppercase">
                   {t('about.header')}
                 </p>
-                <h1 className="text-secondary text-5xl lg:text-7xl xl:text-8xl font-bold font-primary leading-tight">
+                <h1 className="text-secondary text-3xl lg:text-4xl xl:text-5xl font-semibold font-primary leading-tight">
                   {t('about.title')}
                 </h1>
               </motion.div>

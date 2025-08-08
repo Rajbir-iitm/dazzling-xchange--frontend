@@ -89,7 +89,7 @@ function Home() {
                 <p className="text-primary text-2xl lg:text-3xl xl:text-4xl font-medium font-primary tracking-wide mb-4 uppercase">
                   Dazzling Xchange
                 </p>
-                <h1 className="text-secondary text-5xl lg:text-7xl xl:text-8xl font-bold font-primary leading-tight">
+                <h1 className="text-secondary text-3xl lg:text-4xl xl:text-5xl font-semibold font-primary leading-tight">
             {t('hero.title')}
           </h1>
               </motion.div>
@@ -261,7 +261,7 @@ function Home() {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <h3 className="text-3xl lg:text-4xl font-semibold text-white font-primary">
+              <h3 className="text-3xl lg:text-4xl xl:text-5xl font-semibold text-white font-primary">
                 {t('global.title')}
               </h3>
               <p className="text-lg text-neutral-300 leading-relaxed font-primary">
