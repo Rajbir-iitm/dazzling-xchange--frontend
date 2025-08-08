@@ -16,8 +16,8 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { path: '/', icon: Home, label: 'Home', title: 'Home' },
-  { path: '/about', icon: UserCircle, label: 'About', title: 'About' },
   { path: '/services', icon: Briefcase, label: 'Services', title: 'Services' },
+  { path: '/about', icon: UserCircle, label: 'About', title: 'About' },
   { path: '/articles', icon: BookOpen, label: 'Articles', title: 'Articles' }
 ];
 
