@@ -25,18 +25,8 @@ function App() {
         
         {/* Mobile Top Navigation */}
         <div className="lg:hidden fixed top-0 left-0 right-0 h-20 bg-neutral-950 flex items-center justify-between px-4 z-40 border-b border-neutral-800">
-          <Link 
-            to="/"
-            className="w-8 h-8 flex items-center justify-center overflow-hidden hover:scale-105 transition-transform duration-200"
-            title="Home"
-            aria-label="Go to Home"
-          >
-            <img 
-              src={logo} 
-              alt="Dazzling Xchange Logo" 
-              className="w-full h-full max-w-[2rem] max-h-[2rem] object-contain"
-            />
-          </Link>
+          {/* Logo hidden on mobile/cropped browsers */}
+          <div className="w-8 h-8"></div>
         </div>
 
         {/* Main Content */}
