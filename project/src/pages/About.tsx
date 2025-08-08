@@ -1,13 +1,11 @@
-// React import not needed with automatic JSX runtime
+import React from 'react';
 import { Users, Globe, Shield, Zap, Network } from 'lucide-react';
 import { motion } from 'framer-motion';
 import CountUp from 'react-countup';
 import { useInView } from 'react-intersection-observer';
 import Footer from '../components/Footer';
-import { useTranslation } from 'react-i18next';
 
 function About() {
-  const { t } = useTranslation();
   const { ref: statsRef, inView: statsInView } = useInView({ threshold: 0.3, triggerOnce: true });
 
   return (
@@ -29,10 +27,10 @@ function About() {
                 transition={{ delay: 0.2, duration: 0.6 }}
               >
                 <p className="text-primary text-lg lg:text-xl font-medium font-primary tracking-wide mb-4 uppercase">
-                  {t('brand.name')}
+                  About Dazzling Xchange
                 </p>
                 <h1 className="text-secondary text-5xl lg:text-7xl xl:text-8xl font-bold font-primary leading-tight">
-                  {t('about.title')}
+                  Empowering Global Business, Seamlessly
                 </h1>
               </motion.div>
               
@@ -42,7 +40,7 @@ function About() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 0.6 }}
               >
-                {t('about.subtitle')}
+                At Dazzling Xchange, we help businesses break barriers and operate confidently on the global stage. Our platform simplifies cross-border transactions, provides transparent currency exchange solutions, and ensures personalized support every step of the way.
               </motion.p>
             </motion.div>
 
@@ -84,7 +82,7 @@ function About() {
         className="py-20 px-6 lg:px-24 bg-neutral-900"
         aria-labelledby="our-mission"
       >
-        <h2 id="our-mission" className="sr-only">{t('about.mission.aria')}</h2>
+        <h2 id="our-mission" className="sr-only">Our Mission</h2>
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             {/* Left Column - Mission Content */}
@@ -95,24 +93,24 @@ function About() {
               viewport={{ once: true }}
             >
               <h2 className="text-3xl lg:text-4xl font-bold text-secondary mb-6 font-primary">
-                {t('about.mission')}
+                Our Mission
               </h2>
               
               <div className="space-y-6">
                 <p className="text-lg text-neutral-300 leading-relaxed font-primary">
-                  {t('about.mission.text')}
+                  Our mission is to <span className="text-primary font-semibold">empower businesses to operate internationally</span> with the same ease and confidence as domestic operations.
                 </p>
                 
                 <p className="text-neutral-300 leading-relaxed font-primary">
-                  {t('about.mission.text2')}
+                  From payments and collections to risk management and financing – we provide the complete infrastructure for global commerce. Our technology bridges borders, currencies, and regulations to unlock worldwide growth potential.
                 </p>
 
                 <div className="grid grid-cols-2 gap-4 mt-8">
                   {[
-                    { number: "130+", label: t('labels.countries') },
-                    { number: "29+", label: t('labels.currencies') },
-                    { number: "24/7", label: t('labels.support') },
-                    { number: "99.9%", label: t('labels.uptime') }
+                    { number: "130+", label: "Countries" },
+                    { number: "29+", label: "Currencies" },
+                    { number: "24/7", label: "Support" },
+                    { number: "99.9%", label: "Uptime" }
                   ].map((item, index) => (
                     <motion.div 
                       key={item.label}
@@ -149,11 +147,11 @@ function About() {
       </section>
 
       {/* Key Metrics Section */}
-  <section 
+      <section 
         className="py-20 px-6 lg:px-24 bg-gradient-to-r from-neutral-950 via-neutral-900 to-neutral-950"
         aria-labelledby="key-metrics"
       >
-    <h2 id="key-metrics" className="sr-only">{t('about.metrics.aria')}</h2>
+        <h2 id="key-metrics" className="sr-only">Company Key Metrics and Achievements</h2>
         <div className="max-w-7xl mx-auto">
           <motion.div 
             className="text-center mb-16"
@@ -163,19 +161,19 @@ function About() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl lg:text-4xl font-bold text-secondary font-primary mb-4">
-      {t('about.metrics.title')}
+              Trusted by Businesses Worldwide
             </h2>
             <p className="text-lg text-neutral-300 font-primary">
-      {t('about.metrics.subtitle')}
+              Our numbers speak to our commitment to excellence
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center" ref={statsRef}>
             {[
-      { value: 204, suffix: " M", prefix: "£", label: t('about.metrics.revenue') },
-      { value: 1000000, suffix: "+", prefix: "", label: t('about.metrics.paymentsProcessed') },
-      { value: 20000, suffix: "+", prefix: "", label: t('about.metrics.clientsServed') },
-      { value: 1600, suffix: "+", prefix: "", label: t('about.metrics.employees') },
+              { value: 204, suffix: " M", prefix: "£", label: "Revenue in FY2023" },
+              { value: 1000000, suffix: "+", prefix: "", label: "Payments Processed in the Last 12 Months" },
+              { value: 20000, suffix: "+", prefix: "", label: "Clients Served Worldwide" },
+              { value: 1600, suffix: "+", prefix: "", label: "Employees in 29+ Countries" },
             ].map((stat, index) => (
               <motion.div
                 key={stat.label}
@@ -214,30 +212,30 @@ function About() {
         aria-labelledby="our-values"
       >
         <h2 id="our-values" className="text-3xl lg:text-4xl font-bold text-secondary mb-16 text-center font-primary">
-          {t('about.values')}
+          Our Values
         </h2>
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
                 icon: Shield,
-                title: t('about.trust'),
-                description: t('about.trust.desc')
+                title: "Trust & Security",
+                description: "We maintain the highest standards of security and regulatory compliance to ensure your transactions are safe and reliable."
               },
               {
                 icon: Zap,
-                title: t('about.innovation'),
-                description: t('about.innovation.desc')
+                title: "Innovation",
+                description: "We continuously evolve our platform with cutting-edge technology to provide the best possible user experience."
               },
               {
                 icon: Users,
-                title: t('about.accessibility'),
-                description: t('about.accessibility.desc')
+                title: "Customer Focus",
+                description: "Our success is measured by your success. We're committed to providing personalized support and solutions."
               },
               {
                 icon: Network,
-                title: t('about.impact'),
-                description: t('about.impact.desc')
+                title: "Global Impact",
+                description: "We're building a connected world where businesses can operate across borders as easily as within their home countries."
               }
             ].map((value, index) => {
               const IconComponent = value.icon;

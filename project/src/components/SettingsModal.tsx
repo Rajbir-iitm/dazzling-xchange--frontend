@@ -8,6 +8,29 @@ interface SettingsModalProps {
   onClose: () => void;
 }
 
+const languages = [
+  { code: 'en', name: 'languages.en' },
+  { code: 'es', name: 'languages.es' },
+  { code: 'fr', name: 'languages.fr' },
+  { code: 'de', name: 'languages.de' },
+  { code: 'it', name: 'languages.it' },
+  { code: 'pt', name: 'languages.pt' },
+  { code: 'zh', name: 'languages.zh' },
+  { code: 'ja', name: 'languages.ja' },
+  { code: 'ko', name: 'languages.ko' },
+  { code: 'ar', name: 'languages.ar' },
+  { code: 'hi', name: 'languages.hi' },
+  { code: 'ru', name: 'languages.ru' },
+  { code: 'th', name: 'languages.th' },
+  { code: 'vi', name: 'languages.vi' },
+  { code: 'id', name: 'languages.id' },
+  { code: 'ms', name: 'languages.ms' },
+  { code: 'tl', name: 'languages.tl' },
+  { code: 'bn', name: 'languages.bn' },
+  { code: 'ur', name: 'languages.ur' },
+  { code: 'ta', name: 'languages.ta' }
+];
+
 function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   const { i18n, t } = useTranslation();
 
@@ -38,7 +61,7 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
       x: 0,
       opacity: 1,
       transition: {
-    type: "spring" as const,
+        type: "spring",
         damping: 30,
         stiffness: 300,
         duration: 0.3
@@ -48,8 +71,8 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
       x: '100%',
       opacity: 0.8,
       transition: { 
-    duration: 0.25,
-    ease: "easeInOut" as const
+        duration: 0.25,
+        ease: "easeInOut"
       }
     }
   };
@@ -93,17 +116,15 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                 </label>
                 <select
                   id="language-select"
-                  value={i18n.resolvedLanguage || i18n.language}
+                  value={i18n.language}
                   onChange={handleLanguageChange}
                   className="block w-full bg-[#222] text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#16d68f] focus:border-transparent transition-shadow duration-200 border border-gray-700"
                 >
-                  {(i18n.options.supportedLngs as string[] | undefined)
-                    ?.filter((code) => code && code !== 'cimode')
-                    .map((code) => (
-                      <option key={code} value={code}>
-                        {t(`languages.${code}`)}
-                      </option>
-                    ))}
+                  {languages.map(lang => (
+                    <option key={lang.code} value={lang.code}>
+                      {t(lang.name)}
+                    </option>
+                  ))}
                 </select>
               </div>
             </motion.aside>

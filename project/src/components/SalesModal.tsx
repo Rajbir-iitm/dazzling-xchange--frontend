@@ -7,7 +7,6 @@ import PhoneField, { PhoneValue } from './PhoneField';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { countries } from '../utils/countries';
-import { useTranslation } from 'react-i18next';
 
 // Function to detect country based on dial code
 const getCountryFromDialCode = (dialCode: string): string => {
@@ -28,7 +27,6 @@ const getCountryFromDialCode = (dialCode: string): string => {
 
 const SalesModal = () => {
   const { open, closeModal } = useSalesModalStore();
-  const { t } = useTranslation();
   const [phone, setPhone] = useState<PhoneValue>({ dialCode: '61', number: '' });
   
   // Initial form state
@@ -119,7 +117,7 @@ const SalesModal = () => {
       setSubmitted(true);
     } catch (err) {
       console.error('Error saving form submission:', err);
-  setError(t('form.error'));
+      setError('Failed to submit form. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -161,15 +159,15 @@ const SalesModal = () => {
                   closeModal();
                 }}
                 className="absolute top-4 right-4 text-gray-400 hover:text-white hover:bg-neutral-700 rounded-full p-2 transition-all duration-150 z-50 focus:outline-none focus:ring-2 focus:ring-primary active:scale-95"
-                aria-label={t('aria.closeModal')}
+                aria-label="Close modal"
               >
                 <X className="w-5 h-5" />
               </button>
 
               {submitted ? (
                 <div className="flex flex-col items-center justify-center min-h-[300px] text-center">
-                  <h2 className="text-2xl font-bold text-white mb-4">{t('modal.sales.success')}</h2>
-                  <p className="text-gray-300 mb-8">{t('modal.sales.success.desc')}</p>
+                  <h2 className="text-2xl font-bold text-white mb-4">Thank you for your submission!</h2>
+                  <p className="text-gray-300 mb-8">Our team will contact you soon to help you open your account.</p>
                   <button
                     type="button"
                     onClick={() => { 
@@ -178,13 +176,13 @@ const SalesModal = () => {
                     }}
                     className="w-full bg-brand-500 text-neutral-900 rounded-lg px-4 py-3 font-medium hover:bg-brand-600 transition-colors duration-200"
                   >
-                    {t('actions.close')}
+                    Close
                   </button>
                 </div>
               ) : (
                 <>
                   <h2 className="text-xl font-semibold mb-6 text-white pr-8">
-                    {t('modal.sales.title')}
+                    Open Account
                   </h2>
                   {/* Form fields */}
                   <div className="space-y-4">
@@ -193,7 +191,7 @@ const SalesModal = () => {
                       value={formData.name}
                       onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
                       required
-                      placeholder={`${t('modal.sales.name')} *`}
+                      placeholder="Full Name *"
                       className="form-input"
                     />
                     <input
@@ -201,7 +199,7 @@ const SalesModal = () => {
                       value={formData.email}
                       onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
                       required
-                      placeholder={`${t('modal.sales.email')} *`}
+                      placeholder="Email Address *"
                       className="form-input"
                     />
                     <PhoneField value={phone} onChange={setPhone} />
@@ -209,22 +207,22 @@ const SalesModal = () => {
                       type="text"
                       value={formData.company}
                       onChange={(e) => setFormData(prev => ({ ...prev, company: e.target.value }))}
-                      placeholder={t('modal.sales.company')}
+                      placeholder="Company"
                       className="form-input"
                     />
                     <input
                       type="text"
                       value={formData.country}
                       onChange={(e) => setFormData(prev => ({ ...prev, country: e.target.value }))}
-                      placeholder={t('placeholders.countryAuto')}
+                      placeholder="Country (auto-detected from phone)"
                       className="form-input"
-                      title={t('tooltips.countryAuto')}
+                      title="Country is auto-detected from your phone number but can be edited"
                     />
                     <textarea
                       value={formData.message}
                       onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
                       rows={3}
-                      placeholder={t('modal.sales.message')}
+                      placeholder="Message"
                       className="form-input resize-none"
                     />
                     {error && (
@@ -236,7 +234,7 @@ const SalesModal = () => {
                         onClick={clearForm}
                         className="flex-1 py-3 rounded-lg bg-neutral-700 font-medium text-white hover:bg-neutral-600 transition-colors duration-200"
                       >
-                        {t('actions.clearForm')}
+                        Clear Form
                       </button>
                       <button
                         type="submit"
@@ -246,10 +244,10 @@ const SalesModal = () => {
                         {loading ? (
                           <>
                             <Loader className="w-5 h-5 animate-spin inline mr-2" />
-                            {t('modal.sales.submitting')}
+                            Submitting...
                           </>
                         ) : (
-                          t('modal.sales.submit')
+                          'Submit Request'
                         )}
                       </button>
                     </div>

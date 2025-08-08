@@ -3,10 +3,8 @@ import { motion } from 'framer-motion';
 import { CheckCircle2, Shield, Zap, Users, BarChart3, CreditCard, Globe } from 'lucide-react';
 import Footer from '../components/Footer';
 import { useSalesModalStore } from '../stores/salesModalStore';
-import { useTranslation } from 'react-i18next';
 
 function Services() {
-  const { t } = useTranslation();
   const openSalesModal = useSalesModalStore((state) => state.openModal);
 
   return (
@@ -24,24 +22,25 @@ function Services() {
           <h2 id="payments-hero" className="sr-only">International Payments and Collections</h2>
           <div className="text-center space-y-4">
             <h1 className="text-4xl lg:text-5xl font-bold text-secondary font-primary">
-              {t('services.paymentsCollections')}
+              International Payments & Collections
             </h1>
             <p className="text-lg text-neutral-300 max-w-3xl mx-auto leading-relaxed font-primary">
-              {t('services.paymentsCollections.desc')}
+              Pay and get paid worldwide with ease, speed and security. Dazzling Xchange offers integrated
+              payment solutions to help you pay, receive and manage your overseas cash flows — all in one place.
             </p>
           </div>
 
           {/* Feature Grid */}
           <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
             {[
-              t('services.cards.1'),
-              t('services.cards.2'),
-              t('services.cards.3'),
-              t('services.cards.4'),
-              t('services.cards.5'),
-              t('services.cards.6'),
-              t('services.cards.7'),
-              t('services.cards.8'),
+              "Global Payments Made Easy",
+              "Fast & Secure Transactions", 
+              "Seamless Cash Flow Management",
+              "All-In-One Payment Platform",
+              "Integrated Pay & Collect Solutions",
+              "Effortless Cross-Border Transfers",
+              "Pay And Receive Effortlessly With Our Integrated Payments Solution",
+              "In The Currencies And Countries Your Clients Want",
             ].map((text, index) => (
               <motion.li 
                 key={text} 
@@ -65,10 +64,10 @@ function Services() {
             viewport={{ once: true }}
           >
             {[
-              t('services.bullets.1'),
-              t('services.bullets.2'),
-              t('services.bullets.3'),
-              t('services.bullets.4')
+              "Open local currency accounts without physical presence",
+              "Receive international payments with ease", 
+              "Convert balances between currencies",
+              "Use balances to make global payments"
             ].map((text, index) => (
               <p key={index} className="flex items-center font-primary">
                 <CheckCircle2 className="w-5 h-5 text-primary mr-3 flex-shrink-0" />
@@ -91,15 +90,16 @@ function Services() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
             {/* Left: text + numbered flow */}
             <div className="space-y-6">
-              <h2 className="text-3xl lg:text-4xl font-bold text-secondary font-primary">{t('corporate.title')}</h2>
+              <h2 className="text-3xl lg:text-4xl font-bold text-secondary font-primary">Trade Finance</h2>
               <p className="text-neutral-300 leading-relaxed font-primary">
-                {t('corporate.subtitle')}
+                Flexible lending solution: Dazzling Xchange Trade Finance. Our lending solution provides you
+                with credit to help finance your international imports.
               </p>
               <ol className="list-decimal list-inside text-neutral-300 space-y-3 font-primary">
-                <li>{t('services.trade.steps.1')}</li>
-                <li>{t('services.trade.steps.2')}</li>
-                <li>{t('services.trade.steps.3')}</li>
-                <li>{t('services.trade.steps.4')}</li>
+                <li>Your supplier sends you an invoice</li>
+                <li>You forward the invoice to Dazzling Xchange and we pay your supplier</li>
+                <li>You sell your goods or services</li>
+                <li>You repay Dazzling Xchange up to 150 days later in your domestic currency</li>
               </ol>
             </div>
             
@@ -111,19 +111,19 @@ function Services() {
               transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
             >
-              <h3 className="text-xl font-semibold text-secondary font-primary mb-4">{t('services.trade.example.title')}</h3>
+              <h3 className="text-xl font-semibold text-secondary font-primary mb-4">Representative Example</h3>
               <ul className="mt-4 space-y-2 text-neutral-300 font-primary">
-                <li>• {t('services.trade.example.loan')}</li>
-                <li>• {t('services.trade.example.rate')}</li>
-                <li>• {t('services.trade.example.equivalent')}</li>
-                <li>• {t('services.trade.example.cost')}</li>
-                <li>• {t('services.trade.example.interest')}</li>
+                <li>• Loan Amount: CNY ¥430,000</li>
+                <li>• Exchange Rate: 1 AUD = 4.30 CNY</li>
+                <li>• Equivalent in AUD: ¥430,000 ÷ 4.30 = AUD $100,000</li>
+                <li>• Funding Cost: 0.5% per month</li>
+                <li>• Monthly Interest: 0.5% × AUD 100,000 = AUD $500/month</li>
               </ul>
               <div className="mt-6 p-4 bg-primary/10 rounded-lg border border-primary/20">
-                <p className="font-medium text-primary font-primary">{t('services.trade.example.ifHeld')}</p>
+                <p className="font-medium text-primary font-primary">If held for 3 months:</p>
                 <ul className="mt-2 space-y-1 text-neutral-300 font-primary">
-                  <li>• {t('services.trade.example.totalInterest')}</li>
-                  <li>• {t('services.trade.example.totalRepayment')}</li>
+                  <li>• Total Interest: 3 × $500 = AUD $1,500</li>
+                  <li>• Total Repayment: AUD $100,000 + AUD $1,500 = AUD $101,500</li>
                 </ul>
               </div>
             </motion.div>
@@ -141,9 +141,10 @@ function Services() {
         >
           <h2 id="fx-risk" className="sr-only">Foreign Exchange Risk Management</h2>
           <div className="space-y-4 text-center">
-            <h2 className="text-3xl lg:text-4xl font-bold text-secondary font-primary">{t('corporate.fx.title')}</h2>
+            <h2 className="text-3xl lg:text-4xl font-bold text-secondary font-primary">Foreign Exchange Risk Management</h2>
             <p className="text-lg text-neutral-300 max-w-3xl mx-auto font-primary">
-              {t('corporate.fx.desc')}
+              Avoid FX risk with our tailored solutions. Get the support you need to protect your business
+              from market fluctuations.
             </p>
           </div>
 
@@ -151,23 +152,23 @@ function Services() {
           <ul className="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-12 max-w-4xl mx-auto">
             {[
               { 
-                title: t('services.fx.cards.1.title'), 
-                desc: t('services.fx.cards.1.desc'),
+                title: "Dedicated Relationship Manager", 
+                desc: "Supports and manages your finances with personalized expertise and guidance.",
                 icon: Users
               },
               { 
-                title: t('services.fx.cards.2.title'), 
-                desc: t('services.fx.cards.2.desc'),
+                title: "Fixed Forward Contracts", 
+                desc: "Lock in a currency rate up to 5 years ahead for complete predictability.",
                 icon: Shield
               },
               { 
-                title: t('services.fx.cards.3.title'), 
-                desc: t('services.fx.cards.3.desc'),
+                title: "Window Forward Contracts", 
+                desc: "Lock a rate and use it during a set period for maximum flexibility.",
                 icon: Zap
               },
               { 
-                title: t('services.fx.cards.4.title'), 
-                desc: t('services.fx.cards.4.desc'),
+                title: "Non-deliverable Forwards", 
+                desc: "Manage exposure in exotic currencies without physical delivery.",
                 icon: Globe
               },
             ].map((solution, index) => {
@@ -199,9 +200,10 @@ function Services() {
             transition={{ duration: 0.6, delay: 0.4 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-xl font-semibold text-secondary font-primary mb-4">{t('services.fx.playbook.title')}</h3>
+            <h3 className="text-xl font-semibold text-secondary font-primary mb-4">FX Risk Management Playbook</h3>
             <p className="text-neutral-300 font-primary">
-              {t('services.fx.playbook.desc')}
+              Our experts' guide to build a robust risk-management framework: identify & avert risk,
+              protect your margins, and budget with confidence.
             </p>
           </motion.div>
         </motion.div>
@@ -218,9 +220,10 @@ function Services() {
           <h2 id="digital-platforms" className="sr-only">Digital Platforms and APIs</h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-4xl lg:text-5xl font-bold text-primary font-primary">{t('services.digital.title')}</h2>
+              <h2 className="text-4xl lg:text-5xl font-bold text-primary font-primary">Digital Platforms</h2>
               <p className="mt-4 text-neutral-300 leading-relaxed font-primary">
-                {t('services.digital.desc')}
+                Discover the smart way to access and integrate Dazzling Xchange capabilities with our
+                platform and APIs.
               </p>
             </div>
             
@@ -231,15 +234,15 @@ function Services() {
               transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
             >
-              <h4 className="text-lg font-semibold text-secondary font-primary mb-4">{t('services.digital.featuresTitle')}</h4>
+              <h4 className="text-lg font-semibold text-secondary font-primary mb-4">Everything you need in one place</h4>
               <ul className="mt-4 space-y-2 text-neutral-300 font-primary">
                 {[
-                  t('services.digital.features.1'),
-                  t('services.digital.features.2'),
-                  t('services.digital.features.3'),
-                  t('services.digital.features.4'),
-                  t('services.digital.features.5'),
-                  t('services.digital.features.6')
+                  "Convert Currencies",
+                  "Book FX Trades", 
+                  "Manage Your Accounts",
+                  "Pay, Receive and Request Payments",
+                  "Track Cash Flows",
+                  "View Balances and Statements"
                 ].map((feature, index) => (
                   <li key={index} className="flex items-center">
                     <CheckCircle2 className="w-4 h-4 text-primary mr-3 flex-shrink-0" />
@@ -259,10 +262,10 @@ function Services() {
             viewport={{ once: true }}
           >
             {[
-              { value: "130 B+", label: t('stats.worth') },
-              { value: "1 M+", label: t('stats.merchants') },
-              { value: "30 X", label: t('stats.faster') },
-              { value: "1 K+", label: t('stats.clients') },
+              { value: "130 B+", label: "Worth of Transactions" },
+              { value: "1 M+", label: "Merchant Join" },
+              { value: "30 X", label: "Faster Transactions" },
+              { value: "1 K+", label: "Clients Served Worldwide" },
             ].map((metric, index) => (
               <motion.div 
                 key={metric.label}
@@ -293,21 +296,21 @@ function Services() {
           {/* Global Accounts Solutions */}
           <div className="space-y-8">
             <div className="text-center">
-              <h2 className="text-3xl lg:text-4xl font-bold text-secondary font-primary mb-6">{t('institutions.title')}</h2>
+              <h2 className="text-3xl lg:text-4xl font-bold text-secondary font-primary mb-6">Global Accounts Solutions</h2>
               <p className="text-lg text-neutral-300 max-w-3xl mx-auto font-primary">
-                {t('institutions.subtitle')}
+                Open multi-currency accounts worldwide without physical presence. Manage your global finances with ease.
               </p>
             </div>
 
             <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-                {[
-                  t('institutions.multicurrency.desc'),
-                  t('institutions.localaccount.desc'), 
-                  t('services.global.features.3'),
-                  t('services.global.features.4'),
-                  t('institutions.payments.title'),
-                  t('services.global.features.6')
-                ].map((feature, index) => (
+              {[
+                "Multi-currency account management",
+                "Local account details in 29+ currencies", 
+                "Seamless currency conversion",
+                "Real-time balance monitoring",
+                "Integrated payment solutions",
+                "Global regulatory compliance"
+              ].map((feature, index) => (
                 <motion.li 
                   key={index}
                   className="bg-neutral-800 rounded-2xl p-6 shadow-lg card-hover-glow transition-transform duration-300 hover:-translate-y-1 h-[120px] flex flex-col justify-center"
@@ -335,7 +338,7 @@ function Services() {
                 onClick={openSalesModal}
                 className="px-8 py-4 border-2 border-primary text-primary bg-transparent rounded-full font-medium font-primary shadow-lg hover:scale-105 hover:bg-primary hover:text-neutral-900 hover:shadow-glow-primary transition-all duration-300 group"
               >
-                <span className="relative z-10">{t('cta.getStartedToday')}</span>
+                <span className="relative z-10">Get Started Today</span>
               </button>
             </motion.div>
           </div>
@@ -349,27 +352,27 @@ function Services() {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-      <h3 className="text-2xl lg:text-3xl font-bold text-secondary font-primary">{t('services.approach')}</h3>
+              <h3 className="text-2xl lg:text-3xl font-bold text-secondary font-primary">Our Approach</h3>
               <div className="space-y-4">
                 <div className="flex items-start">
                   <CreditCard className="w-6 h-6 text-primary mr-4 mt-1 flex-shrink-0" />
                   <div>
-        <h4 className="font-semibold text-secondary font-primary">{t('labels.pay')}</h4>
-        <p className="text-neutral-300 font-primary">{t('services.approach.pay')}</p>
+                    <h4 className="font-semibold text-secondary font-primary">Pay</h4>
+                    <p className="text-neutral-300 font-primary">Send international payments in 130+ currencies with competitive rates</p>
                   </div>
                 </div>
                 <div className="flex items-start">
                   <BarChart3 className="w-6 h-6 text-primary mr-4 mt-1 flex-shrink-0" />
                   <div>
-        <h4 className="font-semibold text-secondary font-primary">{t('labels.collect')}</h4>
-        <p className="text-neutral-300 font-primary">{t('services.approach.collect')}</p>
+                    <h4 className="font-semibold text-secondary font-primary">Collect</h4>
+                    <p className="text-neutral-300 font-primary">Receive payments from customers worldwide directly into your accounts</p>
                   </div>
                 </div>
                 <div className="flex items-start">
                   <Globe className="w-6 h-6 text-primary mr-4 mt-1 flex-shrink-0" />
                   <div>
-        <h4 className="font-semibold text-secondary font-primary">{t('labels.transact')}</h4>
-        <p className="text-neutral-300 font-primary">{t('services.approach.transact')}</p>
+                    <h4 className="font-semibold text-secondary font-primary">Transact</h4>
+                    <p className="text-neutral-300 font-primary">Execute cross-border transactions with enterprise-grade security</p>
                   </div>
                 </div>
               </div>
@@ -382,13 +385,13 @@ function Services() {
               transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
             >
-        <h4 className="text-lg font-semibold text-secondary font-primary mb-6">{t('labels.platformMetrics')}</h4>
+              <h4 className="text-lg font-semibold text-secondary font-primary mb-6">Platform Metrics</h4>
               <div className="grid grid-cols-2 gap-4">
                 {[
-          { value: "99.9%", label: t('labels.uptime') },
-          { value: "24/7", label: t('labels.support') },
-          { value: "130+", label: t('labels.countries') },
-          { value: "29+", label: t('labels.currencies') }
+                  { value: "99.9%", label: "Uptime" },
+                  { value: "24/7", label: "Support" },
+                  { value: "130+", label: "Countries" },
+                  { value: "29+", label: "Currencies" }
                 ].map((metric, index) => (
                   <div key={index} className="text-center">
                     <p className="text-2xl font-bold text-primary font-primary">{metric.value}</p>

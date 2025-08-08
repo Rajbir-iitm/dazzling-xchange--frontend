@@ -6,7 +6,6 @@ import FloatingTOC from '../components/FloatingTOC';
 // Removed empty floating-toc.css import
 import { doc, getDoc, collection, query, orderBy, getDocs } from 'firebase/firestore';
 import { db } from '../lib/firebase';
-import { useTranslation } from 'react-i18next';
 
 interface ContentBlock {
   id: string;
@@ -31,7 +30,6 @@ interface ArticleDetail {
 }
 
 function ArticleDetail() {
-  const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const [article, setArticle] = useState<ArticleDetail | null>(null);
   const [loading, setLoading] = useState(true);
@@ -50,7 +48,7 @@ function ArticleDetail() {
         {error}
         <div className="mt-4">
           <Link to="/articles" className="text-brand-500 hover:text-brand-400 inline-flex items-center">
-            <ArrowLeft className="w-4 h-4 mr-1" /> {t('articles.back')}
+            <ArrowLeft className="w-4 h-4 mr-1" /> Back to Articles
           </Link>
         </div>
       </div>
@@ -71,7 +69,7 @@ function ArticleDetail() {
         const chapterSnap = await getDoc(chapterRef);
         
         if (!chapterSnap.exists()) {
-          setError(t('articles.notFound'));
+          setError('Chapter not found');
           setLoading(false);
           return;
         }
@@ -110,7 +108,7 @@ function ArticleDetail() {
         }
       } catch (error) {
         console.error('Error fetching chapter data:', error);
-        setError(t('articles.loadError'));
+        setError('Failed to load chapter data. Please try again.');
       } finally {
         setLoading(false);
       }
@@ -222,7 +220,7 @@ function ArticleDetail() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-neutral-950">
-  <div className="w-64 h-64 md:w-80 md:h-80 rounded-full bg-gradient-to-br from-primary/20 to-accent/30 animate-pulse flex items-center justify-center">
+        <div className="w-64 h-64 md:w-80 md:h-80 rounded-full bg-gradient-to-br from-primary/20 to-accent/30 animate-pulse flex items-center justify-center">
           <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-primary border-opacity-80"></div>
         </div>
       </div>
@@ -234,14 +232,14 @@ function ArticleDetail() {
       <div className="bg-neutral-950 min-h-screen">
         <div className="py-16 px-8 lg:px-16">
           <div className="max-w-6xl mx-auto text-center">
-            <h1 className="text-secondary text-4xl font-bold font-primary mb-4">{t('articles.notFoundTitle')}</h1>
-            <p className="text-neutral-300 font-primary mb-8">{t('articles.notFoundDesc')}</p>
+            <h1 className="text-secondary text-4xl font-bold font-primary mb-4">Article Not Found</h1>
+            <p className="text-neutral-300 font-primary mb-8">The article you're looking for doesn't exist.</p>
             <Link
               to="/articles"
               className="inline-flex items-center px-6 py-3 bg-primary text-neutral-900 rounded-full font-medium font-primary hover:bg-accent transition-colors duration-200"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
-              {t('articles.back')}
+              Back to Articles
             </Link>
           </div>
         </div>
@@ -259,7 +257,7 @@ function ArticleDetail() {
             className="inline-flex items-center text-neutral-400 mb-6 hover:text-secondary transition-colors duration-200 group font-primary"
           >
             <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform duration-200" />
-            {t('articles.back')}
+            Back to Articles
           </Link>
 
           <h1 className="text-secondary text-4xl lg:text-5xl font-bold font-primary mb-4">
@@ -285,7 +283,7 @@ function ArticleDetail() {
           <div className="flex flex-wrap gap-4 text-neutral-400 text-sm mb-8 font-primary">
             <div className="flex items-center">
               <Clock size={16} className="mr-1" />
-              <span>{t('articles.topicsCount', { count: article?.topics?.length || 0 })}</span>
+              <span>{article?.topics?.length || 0} Topics</span>
             </div>
           </div>
 
@@ -359,7 +357,7 @@ function ArticleDetail() {
                           ))}
                         </div>
                       ) : (
-                        <p>{t('articles.noContent')}</p>
+                        <p>No content available for this topic yet.</p>
                       )}
                     </div>
                   </section>

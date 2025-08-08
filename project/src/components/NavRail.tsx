@@ -1,28 +1,28 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, UserCircle, Briefcase, BookOpen } from 'lucide-react';
+import { Home, UserCircle, Briefcase, BookOpen, Settings } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useTranslation } from 'react-i18next';
 
-// No props currently
+interface NavRailProps {
+  onOpenSettings: () => void;
+}
 
 interface NavItem {
   path: string;
   icon: React.ComponentType<{ className?: string }>;
-  labelKey: string;
-  titleKey: string;
+  label: string;
+  title: string;
 }
 
 const navItems: NavItem[] = [
-  { path: '/', icon: Home, labelKey: 'nav.home', titleKey: 'nav.home' },
-  { path: '/about', icon: UserCircle, labelKey: 'nav.about', titleKey: 'nav.about' },
-  { path: '/services', icon: Briefcase, labelKey: 'nav.services', titleKey: 'nav.services' },
-  { path: '/articles', icon: BookOpen, labelKey: 'nav.articles', titleKey: 'nav.articles' }
+  { path: '/', icon: Home, label: 'Home', title: 'Home' },
+  { path: '/about', icon: UserCircle, label: 'About', title: 'About' },
+  { path: '/services', icon: Briefcase, label: 'Services', title: 'Services' },
+  { path: '/articles', icon: BookOpen, label: 'Articles', title: 'Articles' }
 ];
 
-const NavRail = () => {
+const NavRail: React.FC<NavRailProps> = React.memo(({ onOpenSettings }) => {
   const location = useLocation();
-  const { t } = useTranslation();
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
   const isActive = (path: string) => {
@@ -48,7 +48,7 @@ const NavRail = () => {
     <>
       {/* Desktop NavRail */}
       <motion.aside 
-        className="fixed left-0 top-0 h-screen bg-neutral-950 justify-between items-start py-6 z-50 hidden lg:flex lg:flex-col shadow-xl border-r border-neutral-800"
+        className="fixed left-0 top-0 h-screen bg-neutral-950 flex flex-col justify-between items-start py-6 z-50 hidden lg:flex shadow-xl border-r border-neutral-800"
         initial={{ width: 80 }}
         whileHover={{ width: 'auto' }}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
@@ -80,8 +80,8 @@ const NavRail = () => {
                       : 'text-neutral-400 hover:text-primary hover:bg-neutral-800'
                     }
                   `}
-                  title={t(item.titleKey)}
-                  aria-label={t(item.titleKey)}
+                  title={item.title}
+                  aria-label={item.title}
                 >
                   <IconComponent 
                     className={`w-6 h-6 flex-shrink-0 transition-colors duration-200`} 
@@ -97,7 +97,7 @@ const NavRail = () => {
                         transition={{ duration: 0.2, ease: 'easeOut' }}
                         className="ml-3 font-medium"
                       >
-                        {t(item.labelKey)}
+                        {item.label}
                       </motion.span>
                     )}
                   </AnimatePresence>
@@ -108,16 +108,52 @@ const NavRail = () => {
         </nav>
 
         <div className="flex flex-col items-start space-y-4 w-full px-4">
+          {/* Settings Button */}
+          <motion.div
+            variants={navItemVariants}
+            initial="initial"
+            whileHover="hover"
+            exit="exit"
+            transition={{ duration: 0.2, ease: 'easeOut' }}
+            onHoverStart={() => setHoveredItem('settings')}
+            onHoverEnd={() => setHoveredItem(null)}
+            className="w-full"
+          >
+            <button
+              onClick={onOpenSettings}
+              className="flex items-center h-12 px-3 rounded-lg text-neutral-400 hover:text-primary hover:bg-neutral-800 transition-colors duration-200 group relative overflow-hidden whitespace-nowrap w-full"
+              title="Settings"
+              aria-label="Settings"
+            >
+              <Settings className="w-6 h-6 flex-shrink-0 transition-colors duration-200" />
+              
+              <AnimatePresence>
+                {hoveredItem === 'settings' && (
+                  <motion.span
+                    variants={labelVariants}
+                    initial="initial"
+                    animate="hover"
+                    exit="exit"
+                    transition={{ duration: 0.2, ease: 'easeOut' }}
+                    className="ml-3 font-medium"
+                  >
+                    Settings
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </button>
+          </motion.div>
+
           {/* Company Logo */}
           <Link 
             to="/"
             className="flex items-center justify-center w-12 h-12 mx-auto rounded-lg hover:bg-neutral-800 transition-colors duration-200 group"
-            title={t('nav.home')}
-            aria-label={t('aria.goHome')}
+            title="Home"
+            aria-label="Go to Home"
           >
             <img 
               src="https://i.ibb.co/VcB3xpz1/Untitled-design-2025-07-02-T031441-104.png" 
-              alt={t('aria.logoAlt')}
+              alt="Dazzling Xchange Logo" 
               className="w-10 h-10 object-contain group-hover:scale-105 transition-transform duration-200"
             />
           </Link>
@@ -125,7 +161,7 @@ const NavRail = () => {
       </motion.aside>
       
       {/* Mobile Bottom Navigation */}
-  <aside className="fixed left-0 bottom-0 w-full h-16 bg-neutral-950 flex justify-around items-center py-2 z-50 lg:hidden border-t border-neutral-800 shadow-lg">
+      <aside className="fixed left-0 bottom-0 w-full h-16 bg-neutral-950 flex justify-around items-center py-2 z-50 lg:hidden border-t border-neutral-800 shadow-lg">
         {navItems.map((item) => {
           const IconComponent = item.icon;
           const active = isActive(item.path);
@@ -141,15 +177,25 @@ const NavRail = () => {
                   : 'text-neutral-400 hover:text-primary'
                 }
               `}
-              aria-label={t(item.titleKey)}
+              aria-label={item.title}
             >
               <IconComponent className="w-6 h-6 transition-colors duration-200" />
             </Link>
           );
         })}
+        
+        <button
+          onClick={onOpenSettings}
+          className="flex flex-col items-center justify-center h-12 px-2 rounded-lg text-neutral-400 hover:text-primary transition-colors duration-200"
+          aria-label="Settings"
+        >
+          <Settings className="w-6 h-6 transition-colors duration-200" />
+        </button>
       </aside>
     </>
   );
-};
+});
+
+NavRail.displayName = 'NavRail';
 
 export default NavRail;

@@ -1,5 +1,4 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { X } from 'lucide-react';
 
 interface ComingSoonModalProps {
@@ -8,7 +7,6 @@ interface ComingSoonModalProps {
 }
 
 const ComingSoonModal: React.FC<ComingSoonModalProps> = React.memo(({ isOpen, onClose }) => {
-  const { t } = useTranslation();
   const handleOverlayClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
       onClose();
@@ -32,7 +30,7 @@ const ComingSoonModal: React.FC<ComingSoonModalProps> = React.memo(({ isOpen, on
           <button 
             onClick={onClose}
             className="absolute top-4 right-4 text-gray-400 hover:text-white hover:bg-neutral-700 rounded-full p-2 transition-all duration-150 z-50 focus:outline-none focus:ring-2 focus:ring-primary active:scale-95"
-            aria-label={t('aria.closeModal')}
+            aria-label="Close modal"
           >
             <X className="w-5 h-5" />
           </button>
@@ -42,20 +40,20 @@ const ComingSoonModal: React.FC<ComingSoonModalProps> = React.memo(({ isOpen, on
               <div className="w-16 h-16 bg-[#16d68f] rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl">📱</span>
               </div>
-              <h2 className="text-2xl font-semibold text-white mb-2">{t('comingSoon.title')}</h2>
+              <h2 className="text-2xl font-semibold text-white mb-2">Coming Soon!</h2>
               <p className="text-gray-300">
-                {t('comingSoon.desc')}
+                Our mobile app is currently in development. We'll notify you as soon as it's available for download.
               </p>
             </div>
 
             <div className="space-y-4">
               <div className="bg-[#222] rounded-lg p-4">
-                <h3 className="text-white font-medium mb-2">{t('comingSoon.expectTitle')}</h3>
+                <h3 className="text-white font-medium mb-2">What to expect:</h3>
                 <ul className="text-gray-300 text-sm space-y-1 text-left">
-                  <li>• {t('comingSoon.points.instant')}</li>
-                  <li>• {t('comingSoon.points.rates')}</li>
-                  <li>• {t('comingSoon.points.wallet')}</li>
-                  <li>• {t('comingSoon.points.multi')}</li>
+                  <li>• Instant money transfers</li>
+                  <li>• Real-time exchange rates</li>
+                  <li>• Secure wallet management</li>
+                  <li>• Multi-currency support</li>
                 </ul>
               </div>
 
@@ -63,7 +61,7 @@ const ComingSoonModal: React.FC<ComingSoonModalProps> = React.memo(({ isOpen, on
                 onClick={onClose}
                 className="w-full bg-[#16d68f] text-black rounded-lg px-4 py-3 font-medium hover:bg-[#14c07f] transition-colors duration-200"
               >
-                {t('actions.gotIt')}
+                Got it!
               </button>
             </div>
           </div>
