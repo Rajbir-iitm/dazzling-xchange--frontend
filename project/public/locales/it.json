@@ -266,6 +266,25 @@
   "services.accounts.platform.countries.value": "130+",
   "services.accounts.platform.countries.label": "Paesi",
   "services.accounts.platform.currencies.value": "29+",
-  "services.accounts.platform.currencies.label": "Valute"
-}
+  "services.accounts.platform.currencies.label": "Valute",
+  "services.fx.manager.title": "Gestore del Rischio",
+  "services.fx.manager.description": "Ottieni una guida personalizzata con uno specialista dedicato alla gestione del rischio che comprende le esigenze della tua attività.",
+  "services.fx.fixed.title": "Contratti Forward Fissi",
+  "services.fx.fixed.description": "Proteggiti dalla volatilità valutaria bloccando i tassi di cambio per date future.",
+  "services.fx.window.title": "Contratti Forward con Finestra",
+  "services.fx.window.description": "Assicura i tassi futuri con flessibilità durante un periodo di tempo.",
+  "services.fx.nondeliverable.title": "Forward Non-Consegnabili",
+  "services.fx.nondeliverable.description": "Soluzioni di copertura specializzate per valute soggette a restrizioni e gestione del rischio valutario.",
+  "services.payments.features.global": "Rete Globale di Pagamenti",
+  "services.payments.features.fast": "Elaborazione Istantanea",
+  "services.payments.features.seamless": "Integrazione Perfetta",
+  "services.payments.features.platform": "Piattaforma Digital-First",
+  "services.payments.features.integrated": "Soluzioni Integrate",
+  "services.payments.features.effortless": "Transazioni Senza Sforzo",
+  "services.payments.features.solution": "Soluzione Completa",
+  "services.payments.features.currencies": "Supporto Multi-Valuta",
+  "services.payments.bullets.accounts": "Aprire e mantenere conti locali",
+  "services.payments.bullets.receive": "Ricevere pagamenti nelle principali valute",
+  "services.payments.bullets.convert": "Convertire valute a tassi favorevoli",
+  "services.payments.bullets.payments": "Pagare istantaneamente in 130+ paesi"
 }

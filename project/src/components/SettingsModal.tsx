@@ -2,34 +2,15 @@ import React from 'react';
 import { X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
+import { getAvailableLanguages } from '../utils/checkTranslations';
 
 interface SettingsModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const languages = [
-  { code: 'en', name: 'languages.en' },
-  { code: 'es', name: 'languages.es' },
-  { code: 'fr', name: 'languages.fr' },
-  { code: 'de', name: 'languages.de' },
-  { code: 'it', name: 'languages.it' },
-  { code: 'pt', name: 'languages.pt' },
-  { code: 'zh', name: 'languages.zh' },
-  { code: 'ja', name: 'languages.ja' },
-  { code: 'ko', name: 'languages.ko' },
-  { code: 'ar', name: 'languages.ar' },
-  { code: 'hi', name: 'languages.hi' },
-  { code: 'ru', name: 'languages.ru' },
-  { code: 'th', name: 'languages.th' },
-  { code: 'vi', name: 'languages.vi' },
-  { code: 'id', name: 'languages.id' },
-  { code: 'ms', name: 'languages.ms' },
-  { code: 'tl', name: 'languages.tl' },
-  { code: 'bn', name: 'languages.bn' },
-  { code: 'ur', name: 'languages.ur' },
-  { code: 'ta', name: 'languages.ta' }
-];
+// Only show languages that have complete translations for all features including the FX cards
+const languages = getAvailableLanguages();
 
 function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   const { i18n, t } = useTranslation();
