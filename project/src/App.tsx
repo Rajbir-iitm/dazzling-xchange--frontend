@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import NavRail from './components/NavRail';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Sidebar from './components/Sidebar';
 import SettingsModal from './components/SettingsModal';
 import Home from './pages/Home';
 import About from './pages/About';
@@ -10,7 +10,6 @@ import ArticleDetail from './pages/ArticleDetail';
 import TermsOfUse from './pages/TermsOfUse';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import SalesModal from './components/SalesModal';
-import logo from './assets/Untitled design - 2025-07-02T030507.802.png';
 
 function App() {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -20,17 +19,14 @@ function App() {
 
   return (
     <Router>
-      <div className="min-h-screen bg-neutral-950 w-full overflow-x-hidden min-w-[320px] font-primary">
-        <NavRail onOpenSettings={openSettings} />
-        
-        {/* Mobile Top Navigation */}
-        <div className="lg:hidden fixed top-0 left-0 right-0 h-20 bg-neutral-950 flex items-center justify-between px-4 z-40 border-b border-neutral-800">
-          {/* Logo hidden on mobile/cropped browsers */}
-          <div className="w-8 h-8"></div>
+      <div className="min-h-screen bg-black w-full overflow-x-hidden min-w-[320px] font-primary flex m-0 p-0">
+        {/* Sidebar Component */}
+        <div className="bg-black m-0 p-0">
+          <Sidebar onOpenSettings={openSettings} />
         </div>
-
+        
         {/* Main Content */}
-        <main className="lg:ml-20 pt-20 lg:pt-0 w-full max-w-full overflow-x-hidden">
+        <main className="flex-1 w-full max-w-full overflow-x-hidden bg-black">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />

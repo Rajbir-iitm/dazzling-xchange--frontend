@@ -39,6 +39,7 @@ html, body {
   padding: 0;
   min-width: 320px; /* Prevent content from being too narrow */
   font-family: var(--font-family-primary);
+  background: black;
 }
 
 html::-webkit-scrollbar,
@@ -59,6 +60,7 @@ body::-webkit-scrollbar {
   width: 100%;
   min-height: 100%;
   position: relative;
+  background: black;
 }
 
 @tailwind base;

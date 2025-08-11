@@ -1,181 +1,155 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Home, UserCircle, Briefcase, BookOpen, Settings } from 'lucide-react';
+import { Sidebar, SidebarBody, SidebarLink } from './ui/sidebar';
+import { motion } from 'framer-motion';
+import { cn } from '@/lib/utils';
 
 interface SidebarProps {
   onOpenSettings: () => void;
 }
 
-function Sidebar({ onOpenSettings }: SidebarProps) {
+interface SidebarProps {
+  onOpenSettings: () => void;
+}
+
+function SidebarComponent({ onOpenSettings }: SidebarProps) {
   const location = useLocation();
+  const [open, setOpen] = useState(false);
 
   const isActive = (path: string) => location.pathname === path;
 
+  const links = [
+    {
+      label: 'Home',
+      href: '/',
+      icon: (
+        <Home 
+          className={cn(
+            'w-8 h-8 transition-colors duration-200',
+            isActive('/') 
+              ? 'text-[#16d68f]' 
+              : 'text-white group-hover/sidebar:text-[#16d68f]'
+          )}
+        />
+      )
+    },
+    {
+      label: 'About',
+      href: '/about',
+      icon: (
+        <UserCircle 
+          className={cn(
+            'w-8 h-8 transition-colors duration-200',
+            isActive('/about') 
+              ? 'text-[#16d68f]' 
+              : 'text-white group-hover/sidebar:text-[#16d68f]'
+          )}
+        />
+      )
+    },
+    {
+      label: 'Services',
+      href: '/services',
+      icon: (
+        <Briefcase 
+          className={cn(
+            'w-6 h-6 transition-colors duration-200',
+            isActive('/services') 
+              ? 'text-[#16d68f]' 
+              : 'text-white group-hover/sidebar:text-[#16d68f]'
+          )}
+        />
+      )
+    },
+    {
+      label: 'Articles',
+      href: '/articles',
+      icon: (
+        <BookOpen 
+          className={cn(
+            'w-8 h-8 transition-colors duration-200',
+            isActive('/articles') || location.pathname.startsWith('/articles/')
+              ? 'text-[#16d68f]' 
+              : 'text-white group-hover/sidebar:text-[#16d68f]'
+          )}
+        />
+      )
+    }
+  ];
+
   return (
-    <>
-      {/* Desktop Sidebar */}
-      <aside className="fixed left-0 top-0 w-20 h-screen bg-black flex flex-col justify-between items-center py-6 z-50 lg:flex hidden">
-        <nav className="flex flex-col items-center space-y-8 mt-8">
-          {/* Home */}
-          <Link
-            to="/"
-            className="icon-btn group block w-12 h-12 flex items-center justify-center"
-            title="Home"
-            aria-label="Home"
-          >
-            <Home 
-              className={`w-6 h-6 transition-colors duration-200 ${
-                isActive('/') 
-                  ? 'text-[#16d68f]' 
-                  : 'text-white group-hover:text-[#16d68f]'
-              }`} 
-            />
-          </Link>
-
-          {/* About */}
-          <Link
-            to="/about"
-            className="icon-btn group block w-12 h-12 flex items-center justify-center"
-            title="About"
-            aria-label="About"
-          >
-            <UserCircle 
-              className={`w-6 h-6 transition-colors duration-200 ${
-                isActive('/about') 
-                  ? 'text-[#16d68f]' 
-                  : 'text-white group-hover:text-[#16d68f]'
-              }`} 
-            />
-          </Link>
-
-          {/* Services */}
-          <Link
-            to="/services"
-            className="icon-btn group block w-12 h-12 flex items-center justify-center"
-            title="Services"
-            aria-label="Services"
-          >
-            <Briefcase 
-              className={`w-6 h-6 transition-colors duration-200 ${
-                isActive('/services') 
-                  ? 'text-[#16d68f]' 
-                  : 'text-white group-hover:text-[#16d68f]'
-              }`} 
-            />
-          </Link>
-
-          {/* Articles */}
-          <Link
-            to="/articles"
-            className="icon-btn group block w-12 h-12 flex items-center justify-center"
-            title="Articles"
-            aria-label="Articles"
-          >
-            <BookOpen 
-              className={`w-6 h-6 transition-colors duration-200 ${
-                isActive('/articles') || location.pathname.startsWith('/articles/')
-                  ? 'text-[#16d68f]' 
-                  : 'text-white group-hover:text-[#16d68f]'
-              }`} 
-            />
-          </Link>
-        </nav>
-
-        <div className="flex flex-col items-center space-y-6">
-          {/* Settings */}
+    <Sidebar open={open} setOpen={setOpen}>
+      <SidebarBody className="justify-between gap-10 bg-black">
+        <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden bg-black">
+          {open ? <Logo /> : <LogoIcon />}
+          <div className="mt-8 flex flex-col gap-4">
+            {links.map((link, idx) => (
+              <SidebarLink key={idx} link={link} />
+            ))}
+          </div>
+        </div>
+        <div className="bg-black">
           <button
             onClick={onOpenSettings}
-            className="icon-btn group block w-12 h-12 flex items-center justify-center"
-            title="Settings"
-            aria-label="Settings"
+            className={cn(
+              'flex items-center justify-start gap-2 group/sidebar py-2 w-full',
+              'text-white hover:text-[#16d68f]'
+            )}
           >
-            <Settings className="w-6 h-6 text-white group-hover:text-[#16d68f] transition-colors duration-200 bg-transparent" />
+            <Settings className="w-8 h-8 transition-colors duration-200 group-hover/sidebar:text-[#16d68f]" />
+            <motion.span
+              animate={{
+                display: open ? "inline-block" : "none",
+                opacity: open ? 1 : 0,
+              }}
+              className="text-white text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
+            >
+              Settings
+            </motion.span>
           </button>
-
-          {/* Company logo */}
-          <Link 
-            to="/"
-            className="w-12 h-12 flex items-center justify-center icon-btn group"
-            title="Home"
-            aria-label="Go to Home"
-          >
-            <img 
-              src="https://i.ibb.co/VcB3xpz1/Untitled-design-2025-07-02-T031441-104.png" 
-              alt="Dazzling Xchange Logo" 
-              className="w-10 h-10 object-contain group-hover:scale-105 transition-transform duration-200"
-            />
-          </Link>
         </div>
-      </aside>
-      
-      {/* Mobile Sidebar - Always visible when cropped */}
-      <aside className="fixed left-0 bottom-0 w-full h-16 bg-black flex justify-around items-center py-2 z-50 lg:hidden border-t border-gray-800 overflow-hidden">
-        <Link
-          to="/"
-          className="icon-btn group flex flex-col items-center justify-center bg-black"
-          aria-label="Home"
-        >
-          <Home 
-            className={`w-6 h-6 transition-colors duration-200 bg-transparent ${
-              isActive('/') 
-                ? 'text-[#16d68f]' 
-                : 'text-white group-hover:text-[#16d68f]'
-            }`} 
-          />
-        </Link>
-        
-        <Link
-          to="/about"
-          className="icon-btn group flex flex-col items-center justify-center bg-black"
-          aria-label="About"
-        >
-          <UserCircle 
-            className={`w-6 h-6 transition-colors duration-200 bg-transparent ${
-              isActive('/about') 
-                ? 'text-[#16d68f]' 
-                : 'text-white group-hover:text-[#16d68f]'
-            }`} 
-          />
-        </Link>
-        
-        <Link
-          to="/services"
-          className="icon-btn group flex flex-col items-center justify-center bg-black"
-          aria-label="Services"
-        >
-          <Briefcase 
-            className={`w-6 h-6 transition-colors duration-200 bg-transparent ${
-              isActive('/services') 
-                ? 'text-[#16d68f]' 
-                : 'text-white group-hover:text-[#16d68f]'
-            }`} 
-          />
-        </Link>
-        
-        <Link
-          to="/articles"
-          className="icon-btn group flex flex-col items-center justify-center bg-black"
-          aria-label="Articles"
-        >
-          <BookOpen 
-            className={`w-6 h-6 transition-colors duration-200 bg-transparent ${
-              isActive('/articles') || location.pathname.startsWith('/articles/')
-                ? 'text-[#16d68f]' 
-                : 'text-white group-hover:text-[#16d68f]'
-            }`} 
-          />
-        </Link>
-        
-        <button
-          onClick={onOpenSettings}
-          className="icon-btn group flex flex-col items-center justify-center bg-black"
-          aria-label="Settings"
-        >
-          <Settings className="w-6 h-6 text-white group-hover:text-[#16d68f] transition-colors duration-200 bg-transparent" />
-        </button>
-      </aside>
-    </>
+      </SidebarBody>
+    </Sidebar>
   );
 }
 
-export default Sidebar;
+// Logo components
+const Logo = () => {
+  return (
+    <Link
+      to="/"
+      className="font-normal flex space-x-3 items-center text-sm text-white py-1 relative z-20"
+    >
+      <img 
+        src="https://i.ibb.co/VcB3xpz1/Untitled-design-2025-07-02-T031441-104.png" 
+        alt="Dazzling Xchange Logo" 
+        className="w-14 h-14 object-contain flex-shrink-0"
+      />
+      <motion.span
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="font-medium text-white whitespace-pre text-lg"
+      >
+        Dazzling Xchange
+      </motion.span>
+    </Link>
+  );
+};
+
+const LogoIcon = () => {
+  return (
+    <Link
+      to="/"
+      className="font-normal flex space-x-2 items-center text-sm text-white py-1 relative z-20"
+    >
+      <img 
+        src="https://i.ibb.co/VcB3xpz1/Untitled-design-2025-07-02-T031441-104.png" 
+        alt="Dazzling Xchange Logo" 
+        className="w-14 h-14 object-contain flex-shrink-0"
+      />
+    </Link>
+  );
+};
+
+export default SidebarComponent;
