@@ -5,8 +5,8 @@ import Footer from '../components/Footer';
 import { useSalesModalStore } from '../stores/salesModalStore';
 import ComingSoonModal from '../components/ComingSoonModal';
 
-// Lazy load the currency animation for performance
-const CurrencyAnimation = lazy(() => import('../components/CurrencyAnimation'));
+// Lazy load the currency converter for performance
+const CurrencyConverter = lazy(() => import('../components/CurrencyConverter'));
 
 function Home() {
   const { t } = useTranslation();
@@ -124,12 +124,12 @@ function Home() {
               </motion.div>
             </motion.div>
 
-            {/* Right: Currency Animation */}
+            {/* Right: Currency Converter */}
             <motion.div 
-              className="relative h-[400px] md:h-[500px] lg:h-[600px] flex items-center justify-center"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.8, duration: 1, ease: 'easeOut' }}
+              className="space-y-6 md:space-y-8 z-10"
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.8, duration: 0.8, ease: 'easeOut' }}
             >
               <Suspense fallback={
                 <div className="w-full h-full flex items-center justify-center">
@@ -138,25 +138,8 @@ function Home() {
                   </div>
                 </div>
               }>
-                <CurrencyAnimation />
+                <CurrencyConverter />
               </Suspense>
-              
-              {/* Floating elements around globe */}
-              <motion.div
-                className="absolute top-1/4 left-1/4 w-3 h-3 bg-primary rounded-full blur-sm"
-                animate={{ y: [0, -10, 0], opacity: [0.5, 1, 0.5] }}
-                transition={{ duration: 3, repeat: Infinity, repeatType: 'reverse' }}
-              />
-              <motion.div
-                className="absolute top-3/4 right-1/4 w-2 h-2 bg-accent rounded-full blur-sm"
-                animate={{ y: [0, 10, 0], opacity: [0.3, 0.8, 0.3] }}
-                transition={{ duration: 4, repeat: Infinity, repeatType: 'reverse', delay: 1 }}
-              />
-              <motion.div
-                className="absolute top-1/2 right-1/6 w-1 h-1 bg-secondary rounded-full blur-sm"
-                animate={{ x: [0, 5, 0], opacity: [0.2, 0.6, 0.2] }}
-                transition={{ duration: 5, repeat: Infinity, repeatType: 'reverse', delay: 2 }}
-              />
             </motion.div>
           </div>
         </div>
