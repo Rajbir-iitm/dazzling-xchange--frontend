@@ -266,5 +266,13 @@
   "services.accounts.platform.countries.value": "130+",
   "services.accounts.platform.countries.label": "国",
   "services.accounts.platform.currencies.value": "29+",
-  "services.accounts.platform.currencies.label": "通貨"
+  "services.accounts.platform.currencies.label": "通貨",
+  "converter.from": "から",
+  "converter.to": "まで",
+  "converter.historicalRates": "過去のレート",
+  "converter.trend": "為替レートの推移",
+  "converter.loading": "為替レートを読み込み中...",
+  "converter.retry": "再試行",
+  "converter.lastUpdated": "最終更新:",
+  "converter.today": "今日"
 }

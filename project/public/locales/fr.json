@@ -286,5 +286,13 @@
   "services.accounts.platform.countries.value": "130+",
   "services.accounts.platform.countries.label": "Pays",
   "services.accounts.platform.currencies.value": "29+",
-  "services.accounts.platform.currencies.label": "Devises"
+  "services.accounts.platform.currencies.label": "Devises",
+  "converter.from": "De",
+  "converter.to": "À",
+  "converter.historicalRates": "Taux Historiques",
+  "converter.trend": "tendance du taux de change",
+  "converter.loading": "Chargement du taux de change...",
+  "converter.retry": "Réessayer",
+  "converter.lastUpdated": "Dernière mise à jour:",
+  "converter.today": "aujourd'hui"
 }

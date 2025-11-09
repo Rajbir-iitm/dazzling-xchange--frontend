@@ -282,5 +282,13 @@
   "services.accounts.platform.countries.value": "130+",
   "services.accounts.platform.countries.label": "Länder",
   "services.accounts.platform.currencies.value": "29+",
-  "services.accounts.platform.currencies.label": "Währungen"
+  "services.accounts.platform.currencies.label": "Währungen",
+  "converter.from": "Von",
+  "converter.to": "Nach",
+  "converter.historicalRates": "Historische Kurse",
+  "converter.trend": "Wechselkurstrend",
+  "converter.loading": "Wechselkurs wird geladen...",
+  "converter.retry": "Erneut versuchen",
+  "converter.lastUpdated": "Zuletzt aktualisiert:",
+  "converter.today": "heute"
 }

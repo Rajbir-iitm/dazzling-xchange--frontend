@@ -433,27 +433,31 @@ function ArticleDetail() {
                       </h2>
                       <div
                         className="prose prose-invert max-w-none prose-lg
-                          prose-p:text-neutral-300 prose-p:leading-relaxed prose-p:mb-6
+                          prose-p:text-white prose-p:leading-relaxed prose-p:mb-6
                           prose-headings:text-secondary prose-headings:font-semibold prose-headings:font-primary
                           prose-h3:text-xl prose-h4:text-lg prose-h3:mb-4 prose-h4:mb-3
                           prose-strong:text-secondary prose-strong:font-semibold
-                          prose-ul:text-neutral-300 prose-ol:text-neutral-300 prose-ul:mb-6 prose-ol:mb-6
-                          prose-li:text-neutral-300 prose-li:leading-relaxed prose-li:mb-2
+                          prose-ul:text-white prose-ol:text-white prose-ul:mb-6 prose-ol:mb-6
+                          prose-li:text-white prose-li:leading-relaxed prose-li:mb-2
                           prose-a:text-primary prose-a:no-underline hover:prose-a:underline hover:prose-a:text-accent
                           prose-code:text-primary prose-code:bg-neutral-900 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm
                           prose-blockquote:border-l-primary prose-blockquote:bg-neutral-900/50 prose-blockquote:p-6 prose-blockquote:rounded-r-xl prose-blockquote:mb-6
-                          prose-blockquote:text-neutral-300 prose-blockquote:italic
+                          prose-blockquote:text-white prose-blockquote:italic
                           prose-img:rounded-xl prose-img:shadow-lg
                           font-primary"
                       >
                         {section.content ? (
-                          <div dangerouslySetInnerHTML={{ __html: section.content }} />
+                          <div 
+                            className="article-content"
+                            style={{ color: '#ffffff' }}
+                            dangerouslySetInnerHTML={{ __html: section.content }} 
+                          />
                         ) : section.blocks && section.blocks.length > 0 ? (
                           <div className="space-y-4">
                             {section.blocks.map((block) => (
                               <div key={block.id}>
                                 {block.type === 'paragraph' && (
-                                  <p className="leading-relaxed">{block.content}</p>
+                                  <p className="leading-relaxed text-white">{block.content}</p>
                                 )}
                                 {/* Add other block type handlers as needed */}
                               </div>

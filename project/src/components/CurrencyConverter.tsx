@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import CountUp from 'react-countup';
+import { useTranslation } from 'react-i18next';
 
 // Popular currency pairs
 const currencies = [
@@ -30,6 +31,7 @@ interface HistoricalDataPoint {
 }
 
 const CurrencyConverter: React.FC = () => {
+  const { t } = useTranslation();
   const [fromCurrency, setFromCurrency] = useState('USD');
   const [toCurrency, setToCurrency] = useState('INR');
   const [exchangeRate, setExchangeRate] = useState<ExchangeRateData | null>(null);
@@ -246,7 +248,7 @@ const CurrencyConverter: React.FC = () => {
         <div className="flex items-end justify-center gap-4 mb-8">
           {/* From Currency Box */}
           <div className="flex-1 max-w-xs">
-            <label className="block text-neutral-400 text-xs mb-2 font-primary uppercase tracking-wide">From</label>
+            <label className="block text-neutral-400 text-xs mb-2 font-primary uppercase tracking-wide">{t('converter.from')}</label>
             <div className="bg-gradient-to-br from-neutral-800/40 to-neutral-900/40 border border-neutral-700/50 rounded-xl p-4 hover:border-primary/50 transition-all">
               <select
                 value={fromCurrency}
@@ -286,7 +288,7 @@ const CurrencyConverter: React.FC = () => {
 
           {/* To Currency Box */}
           <div className="flex-1 max-w-xs">
-            <label className="block text-neutral-400 text-xs mb-2 font-primary uppercase tracking-wide">To</label>
+            <label className="block text-neutral-400 text-xs mb-2 font-primary uppercase tracking-wide">{t('converter.to')}</label>
             <div className="bg-gradient-to-br from-neutral-800/40 to-neutral-900/40 border border-neutral-700/50 rounded-xl p-4 hover:border-primary/50 transition-all">
               <select
                 value={toCurrency}
@@ -308,7 +310,7 @@ const CurrencyConverter: React.FC = () => {
         {loading && !exchangeRate ? (
           <div className="text-center py-12">
             <div className="inline-block w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
-            <p className="text-neutral-400 mt-4 font-primary">Loading exchange rate...</p>
+            <p className="text-neutral-400 mt-4 font-primary">{t('converter.loading')}</p>
           </div>
         ) : error ? (
           <div className="text-center py-12">
@@ -317,7 +319,7 @@ const CurrencyConverter: React.FC = () => {
               onClick={() => fetchExchangeRate(fromCurrency, toCurrency)}
               className="mt-4 px-6 py-2 bg-primary text-neutral-900 rounded-full font-primary hover:bg-primary/80 transition-all"
             >
-              Retry
+              {t('converter.retry')}
             </button>
           </div>
         ) : exchangeRate ? (
@@ -347,24 +349,9 @@ const CurrencyConverter: React.FC = () => {
               </motion.div>
             </AnimatePresence>
 
-            {/* 24h Change */}
-            <motion.div
-              className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-lg font-semibold font-primary ${
-                exchangeRate.change24h >= 0
-                  ? 'bg-green-500/20 text-green-400'
-                  : 'bg-red-500/20 text-red-400'
-              }`}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
-            >
-              <span>{exchangeRate.change24h >= 0 ? '↑' : '↓'}</span>
-              <span>{Math.abs(exchangeRate.change24h).toFixed(2)}% today</span>
-            </motion.div>
-
             {/* Last Updated */}
             <p className="text-neutral-500 text-sm font-primary">
-              Last updated: {new Date(exchangeRate.timestamp).toLocaleTimeString()}
+              {t('converter.lastUpdated')} {new Date(exchangeRate.timestamp).toLocaleTimeString()}
             </p>
           </div>
         ) : null}
@@ -379,9 +366,9 @@ const CurrencyConverter: React.FC = () => {
       >
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h2 className="text-white text-2xl font-bold font-primary">Historical Rates</h2>
+            <h2 className="text-white text-2xl font-bold font-primary">{t('converter.historicalRates')}</h2>
             <p className="text-neutral-400 text-sm font-primary">
-              {fromCurrency} to {toCurrency} exchange rate trend
+              {fromCurrency} to {toCurrency} {t('converter.trend')}
             </p>
           </div>
 
